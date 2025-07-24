@@ -1,4 +1,32 @@
 local consts = require("consts")
+local symbol_kinds = {
+  Array = "󰅪",
+  Class = "",
+  Color = "󰏘",
+  Constant = "󰏿",
+  Constructor = "",
+  Enum = "",
+  EnumMember = "",
+  Event = "",
+  Field = "󰜢",
+  File = "󰈙",
+  Folder = "󰉋",
+  Function = "󰆧",
+  Interface = "",
+  Keyword = "󰌋",
+  Method = "󰆧",
+  Module = "",
+  Operator = "󰆕",
+  Property = "󰜢",
+  Reference = "󰈇",
+  Snippet = "",
+  Struct = "",
+  Text = "",
+  TypeParameter = "",
+  Unit = "",
+  Value = "",
+  Variable = "󰀫",
+}
 return {
   {
     consts.BLINK_CMP,
@@ -6,7 +34,7 @@ return {
     lazy = false,
     opts = {
       appearance = {
-        kind_icons = require("icons").symbol_kinds,
+        kind_icons = symbol_kinds,
       },
       completion = {
         documentation = {
