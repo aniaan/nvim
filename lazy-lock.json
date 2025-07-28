@@ -10,7 +10,7 @@
   "mini.pairs": { "branch": "main", "commit": "1e1ca3f60f58d4050bf814902b472eec9963a5dd" },
   "noice.nvim": { "branch": "main", "commit": "0427460c2d7f673ad60eb02b35f5e9926cf67c59" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
-  "nvim-treesitter": { "branch": "main", "commit": "57aa15d4cc6f6459f7f8d864d16f970eb801faff" },
+  "nvim-treesitter": { "branch": "main", "commit": "b26b4258294c742c2613a7d98fe53014d1c8fe49" },
   "nvim-treesitter-textobjects": { "branch": "main", "commit": "b54cec389e98c5b0babbe618773acec927437cab" },
   "render-markdown.nvim": { "branch": "main", "commit": "5c0e241bdbd208b7ae546009378d6bc93c083ef3" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },
