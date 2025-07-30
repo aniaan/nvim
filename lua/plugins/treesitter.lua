@@ -49,19 +49,6 @@ local function setup_treesitter_move()
   end
 end
 
-local function register_filetypes()
-  vim.filetype.add({
-    pattern = {
-      [".*/waybar/config"] = "jsonc",
-      [".*/kitty/.+%.conf"] = "kitty",
-      [".*/ghostty/config"] = "ghostty",
-      ["%.env%.[%w_.-]+"] = "sh",
-    },
-  })
-  vim.treesitter.language.register("bash", "kitty")
-  vim.treesitter.language.register("bash", "ghostty")
-end
-
 local function install()
   local isnt_installed = function(lang)
     return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0
@@ -90,7 +77,6 @@ return {
     build = ":TSUpdate",
     opts = {},
     config = function(_)
-      register_filetypes()
       install()
       setup_treesitter_move()
     end,
