@@ -28,7 +28,6 @@ MiniStatusline.active = function()
   local filename = MiniStatusline.section_filename({ trunc_width = 140 })
   local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
   local location = MiniStatusline.section_location({ trunc_width = 75 })
-  local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
   local lsp_progress = MiniStatusline.section_lsp_progress({ trunc_width = 75 })
 
   -- Usage of `MiniStatusline.combine_groups()` ensures highlighting and
@@ -42,7 +41,7 @@ MiniStatusline.active = function()
     "%=", -- End left alignment
     { hl = "MiniStatuslineFilename", strings = { lsp_progress } },
     { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
-    { hl = mode_hl, strings = { search, location } },
+    { hl = mode_hl, strings = { location } },
   })
 end
 
