@@ -2,7 +2,7 @@ return {
   {
     require("consts").MARKDOWN,
     opts = {
-      render_modes = true,
+      render_modes = false,
       code = {
         sign = false,
         width = "block",
