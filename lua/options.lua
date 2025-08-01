@@ -35,7 +35,7 @@ vim.o.shiftround = true   -- 缩进时四舍五入到 shiftwidth 的倍数
 -- 显示和界面设置
 -- ============================================================================
 vim.opt.list = true                                -- 显示不可见字符（空格、Tab等）
-vim.opt.listchars = "tab:»·,trail:·,nbsp:·"      -- 设置不可见字符的显示样式
+vim.opt.listchars = "tab:» ,trail:·,nbsp:·"      -- 设置不可见字符的显示样式
 vim.wo.signcolumn = "yes"                         -- 始终显示标志列，避免文本跳动
 vim.o.linebreak = true                            -- 在单词边界处换行，不会截断单词
 vim.opt.number = false                             -- 显示行号
