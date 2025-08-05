@@ -1,45 +1,35 @@
 local M = {}
+local current_colors_name = nil
 
-M.get_theme_tb = function(type)
-  local name = vim.g.aniaan_theme
-  local present1, default_theme = pcall(require, "base46.themes." .. name)
-
-  if present1 then
-    return default_theme[type]
-  else
-    error("No such theme: " .. name)
-  end
+M.get_theme_val = function(colors_name, type)
+  local theme = require("base46.themes." .. colors_name)
+  return theme[type]
 end
 
-local function apply_hue_theme()
-  local config = M.get_theme_tb("config")
+local function apply_hue_theme(colors_name)
+  local config = M.get_theme_val(colors_name, "config")
   require("base46.hue").setup(config)
   return config.background
 end
 
-local function apply_hue_pattle_theme()
-  local name = vim.g.aniaan_theme
-  local pattle = require("base46.themes." .. name)
+local function apply_hue_pattle_theme(colors_name)
+  local pattle = require("base46.themes." .. colors_name)
   require("base46.hue").apply_palette(pattle)
   return pattle.bg
 end
 
 M.setup = function(colors_name)
-  vim.cmd("hi clear")
-  if vim.fn.exists("syntax_on") then
-    vim.cmd("syntax reset")
-  end
+  vim.cmd("highlight clear")
 
   vim.g.colors_name = nil
-  vim.g.aniaan_theme = colors_name
-  vim.o.termguicolors = true
+  current_colors_name = colors_name
 
   local bg
   if string.find(colors_name, "mini-p", 1, true) ~= nil then
-    bg = apply_hue_pattle_theme()
+    bg = apply_hue_pattle_theme(colors_name)
   else
-    vim.o.background = M.get_theme_tb("type")
-    bg = apply_hue_theme()
+    vim.o.background = M.get_theme_val(colors_name, "type")
+    bg = apply_hue_theme(colors_name)
   end
 
   vim.schedule(function()
@@ -64,7 +54,6 @@ local function preview_theme(colors_name)
 end
 
 M.pick_theme = function()
-  local current_theme = vim.g.aniaan_theme
   local themes = {}
   local theme_files = vim.fn.stdpath("config") .. "/lua/base46/themes"
 
@@ -76,7 +65,7 @@ M.pick_theme = function()
   end
 
   for i, theme in ipairs(themes) do
-    if theme.text == current_theme then
+    if theme.text == current_colors_name then
       table.remove(themes, i)
       table.insert(themes, 1, theme)
       break
