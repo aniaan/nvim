@@ -106,8 +106,7 @@ map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Show Line Diagnostic
 -- 文件操作
 -- ============================================================================
 -- 保存文件
-map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save Current File" })
-map("n", "<leader>fs", "<cmd>wa<cr>", { desc = "Save All Files" })
+map("n", "<leader>fs", "<cmd>silent! wa | redraw!<cr>", { desc = "Save All Files", silent = true })
 
 -- 新建文件
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })

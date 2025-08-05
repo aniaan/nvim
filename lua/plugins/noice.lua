@@ -1,6 +1,7 @@
 return {
   {
     require("consts").NOICE,
+    enabled = false,
     event = "VeryLazy",
     dependencies = {
       require("consts").NUI,
