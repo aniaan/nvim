@@ -70,7 +70,7 @@ vim.opt.winminwidth = 5                   -- 最小窗口宽度
 vim.o.scrolloff = 4                     -- 滚动时光标上下保持4行距离
 vim.o.sidescrolloff = 8                 -- 水平滚动时光标左右保持8列距离
 vim.opt.guicursor =                     -- 光标样式设置，禁用闪烁
-  "n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor,t:ver25-Cursor/lCursor,a:blinkon0"
+  "n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor,t:ver25-Cursor/lCursor"
 
 vim.opt.smoothscroll = true             -- 启用平滑滚动
 
