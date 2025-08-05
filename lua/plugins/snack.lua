@@ -7,14 +7,12 @@ return {
     lazy = false,
     opts = {
       bigfile = { enabled = true },
-      quickfile = { enabled = true },
       indent = { enabled = true },
       input = { enabled = true },
       notifier = { enabled = true },
       scope = { enabled = true },
-      scroll = { enabled = false },
-      statuscolumn = { enabled = true }, -- we set this in options.lua
-      words = { enabled = false },
+      statuscolumn = { enabled = true },
+      explorer = { enabled = true },
 
       dashboard = {
         preset = {
