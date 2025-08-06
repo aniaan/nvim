@@ -18,7 +18,6 @@ require("autocmds")
 require("base46").setup("mini-hue-azure")
 require("statusline").setup()
 require("lsp")
-require("lazy")
 require("utils").cowboy()
 
 require("lazy").setup({
