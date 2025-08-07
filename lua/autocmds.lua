@@ -59,6 +59,8 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   group = augroup("rust_flycheck"),
   pattern = "*.rs",
   callback = function()
-    require("utils").rust_flycheck("run")
+    vim.schedule(function()
+      require("utils").rust_flycheck("run")
+    end)
   end,
 })
