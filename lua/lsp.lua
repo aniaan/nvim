@@ -1,10 +1,3 @@
-local diagnostic_icons = {
-  Error = " ",
-  Warn = " ",
-  Hint = " ",
-  Info = " ",
-}
-
 -- Diagnostic configuration.
 vim.diagnostic.config({
   virtual_text = {
@@ -15,10 +8,10 @@ vim.diagnostic.config({
   severity_sort = true,
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = diagnostic_icons.Error,
-      [vim.diagnostic.severity.WARN] = diagnostic_icons.Warn,
-      [vim.diagnostic.severity.HINT] = diagnostic_icons.Hint,
-      [vim.diagnostic.severity.INFO] = diagnostic_icons.Info,
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
     },
   },
 })
@@ -138,19 +131,6 @@ local function on_attach(client, bufnr)
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end
 end
-
--- Update mappings when registering dynamic capabilities.
--- local register_capability = vim.lsp.handlers[methods.client_registerCapability]
--- vim.lsp.handlers[methods.client_registerCapability] = function(err, res, ctx)
---   local client = vim.lsp.get_client_by_id(ctx.client_id)
---   if not client then
---     return
---   end
---
---   on_attach(client, vim.api.nvim_get_current_buf())
---
---   return register_capability(err, res, ctx)
--- end
 
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "Configure LSP keymaps",
