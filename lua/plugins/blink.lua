@@ -25,7 +25,7 @@ local symbol_kinds = {
   TypeParameter = "",
   Unit = "",
   Value = "",
-  Variable = "󰀫",
+  Variable = "󰫧",
 }
 return {
   {
@@ -34,7 +34,7 @@ return {
     lazy = false,
     opts = {
       appearance = {
-        kind_icons = symbol_kinds,
+        -- kind_icons = symbol_kinds,
       },
       completion = {
         documentation = {
