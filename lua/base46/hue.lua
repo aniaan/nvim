@@ -849,9 +849,7 @@ MiniHues.apply_palette = function(palette, plugins)
   hi("MiniStatuslineModeReplace", { fg = p.bg, bg = p.red, bold = true })
   hi("MiniStatuslineModeVisual", { fg = p.bg, bg = p.green, bold = true })
 
-  hi("MiniStatuslineSpinner", { fg = p.azure, bg = p.bg, bold = true })
-  hi("MiniStatuslineClient", { fg = p.fg_mid, bg = p.bg, bold = true })
-  hi("MiniStatuslineTitle", { fg = p.fg_mid, bg = p.bg })
+  hi("MiniStatuslineLsp", { fg = p.cyan, bg = p.bg })
 
   hi("LazyButton", { fg = nil, bg = p.bg_mid })
   hi("LazyButtonActive", { fg = nil, bg = p.bg_mid2 })

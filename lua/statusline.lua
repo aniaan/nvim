@@ -173,15 +173,9 @@ MiniStatusline.section_diagnostics = function(args)
   return icon .. table.concat(t, "")
 end
 
----@type table<string, string?>
-local progress_status = {
-  client = nil,
-  kind = nil,
-  title = nil,
-}
+local lsp_msg = ""
 
-local spinner_index = 0
-local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥", "" }
 
 ---@param args __statusline_args Use `args.icon` to supply your own icon.
 MiniStatusline.section_lsp_progress = function(args)
@@ -189,7 +183,7 @@ MiniStatusline.section_lsp_progress = function(args)
     return ""
   end
 
-  if not progress_status.title or not progress_status.client then
+  if not lsp_msg then
     return ""
   end
 
@@ -197,14 +191,7 @@ MiniStatusline.section_lsp_progress = function(args)
     return ""
   end
 
-  local spin_char = spinner[spinner_index % #spinner + 1]
-  spinner_index = spinner_index + 1
-
-  return table.concat({
-    string.format("%%#MiniStatuslineSpinner#%s ", spin_char),
-    string.format("%%#MiniStatuslineClient#%s  ", progress_status.client),
-    string.format("%%#MiniStatuslineTitle#%s...", progress_status.title),
-  })
+  return "%#MiniStatuslineLsp#" .. lsp_msg
 end
 
 --- Section for file name
@@ -341,25 +328,22 @@ H.create_autocommands = function()
   end)
   au("DiagnosticChanged", "*", track_diagnostics, "Track diagnostics")
 
-  au("LspProgress", { "begin", "end" }, function(args)
+  au("LspProgress", { "begin", "report", "end" }, function(args)
     if not args.data then
       return
     end
 
-    local kind = args.data.params.value.kind
-
+    local data = args.data.params.value
+    local kind = data.kind
     if kind == "end" then
-      progress_status.title = nil
-      spinner_index = 0
+      lsp_msg = ""
       vim.defer_fn(function()
         vim.cmd.redrawstatus()
       end, 500)
     else
-      progress_status = {
-        client = vim.lsp.get_client_by_id(args.data.client_id).name,
-        kind = kind,
-        title = args.data.params.value.title,
-      }
+      local percentage = data.percentage or 100
+      local idx = math.max(1, math.floor(percentage / 10))
+      lsp_msg = spinners[idx] .. " " .. percentage .. "%% " .. data.title
       vim.cmd.redrawstatus()
     end
   end, "Update LSP progress in statusline")
