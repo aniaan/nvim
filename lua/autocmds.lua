@@ -64,3 +64,20 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     end)
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("treesitter_folding"),
+  desc = "Enable Treesitter folding",
+  callback = function(args)
+    local bufnr = args.buf
+    if vim.bo[bufnr].filetype ~= "bigfile" and pcall(vim.treesitter.start, bufnr) then
+      vim.api.nvim_buf_call(bufnr, function()
+        vim.wo.foldmethod = "expr"
+        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.cmd.normal("zx")
+      end)
+    else
+      vim.wo.foldmethod = "indent"
+    end
+  end,
+})

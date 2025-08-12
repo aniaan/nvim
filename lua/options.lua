@@ -77,11 +77,8 @@ vim.opt.smoothscroll = true             -- 启用平滑滚动
 -- ============================================================================
 -- 折叠设置
 -- ============================================================================
--- vim.o.foldcolumn = "1"       -- 显示折叠列，宽度为1
-vim.o.foldlevel = 99         -- 默认折叠级别
+vim.o.foldcolumn = "1"       -- 显示折叠列，宽度为1
 vim.o.foldlevelstart = 99    -- 打开文件时展开所有折叠
-vim.opt.foldexpr = "v:lua.require'utils.fold'.foldexpr()"
-vim.opt.foldmethod = "expr"
 vim.opt.foldtext = ""
 
 -- ============================================================================
@@ -171,4 +168,3 @@ if vim.env.SSH_TTY then
     },
   }
 end
-
