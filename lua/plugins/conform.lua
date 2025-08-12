@@ -43,9 +43,5 @@ return {
         injected = { options = { ignore_errors = true } },
       },
     },
-    init = function()
-      -- Use conform for gq.
-      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-    end,
   },
 }

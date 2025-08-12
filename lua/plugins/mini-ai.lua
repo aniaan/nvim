@@ -2,9 +2,9 @@ return {
   {
     require("consts").MINI_AI,
     event = "VeryLazy",
-    opts = function()
+    config = function()
       local ai = require("mini.ai")
-      return {
+      ai.setup({
         n_lines = 500,
         custom_textobjects = {
           f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
@@ -15,10 +15,7 @@ return {
           }),
           u = ai.gen_spec.function_call(), -- u for "Usage"
         },
-      }
-    end,
-    config = function(_, opts)
-      require("mini.ai").setup(opts)
+      })
     end,
   },
 }
