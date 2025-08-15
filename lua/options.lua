@@ -23,13 +23,8 @@ opt.termguicolors = true              -- 启用真彩色支持，让颜色更丰
 opt.mouse = "a"                       -- 在所有模式下启用鼠标支持
 opt.mousescroll = "ver:3,hor:0"       -- 鼠标滚轮设置：垂直滚动3行，禁用水平滚动
 opt.undofile = true                   -- 启用持久化撤销，重启后仍可撤销
-opt.undolevels = 10000                -- 撤销历史的最大数量
-opt.confirm = true                    -- 退出修改过的缓冲区前确认保存更改
 opt.cursorline = true                 -- 高亮当前行
-opt.conceallevel = 2                -- 隐藏粗体和斜体的 * 标记，但保留替换标记
 opt.wrap = false                    -- 禁用自动换行
-
-
 opt.clipboard = "unnamedplus"     -- 非 SSH 环境下与系统剪贴板同步
 
 -- ============================================================================
@@ -76,8 +71,6 @@ opt.winminwidth = 5                   -- 最小窗口宽度
 -- ============================================================================
 -- 光标和滚动设置
 -- ============================================================================
-opt.scrolloff = 4                     -- 滚动时光标上下保持4行距离
-opt.sidescrolloff = 8                 -- 水平滚动时光标左右保持8列距离
 opt.guicursor =                     -- 光标样式设置，禁用闪烁
   "n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor,t:ver25-Cursor/lCursor"
 
@@ -95,9 +88,6 @@ opt.foldtext = ""
 -- ============================================================================
 opt.ignorecase = true        -- 搜索时忽略大小写
 opt.smartcase = true         -- 如果搜索包含大写字母，则区分大小写
-opt.inccommand = "nosplit"   -- 实时预览替换效果，不分割窗口
-opt.grepformat = "%f:%l:%c:%m"      -- grep 输出格式
-opt.grepprg = "rg --vimgrep"        -- 使用 ripgrep 作为 grep 程序
 
 -- ============================================================================
 -- 时间和响应设置
@@ -113,16 +103,15 @@ opt.wildignore:append({ ".DS_Store" })      -- 文件补全时忽略.DS_Store文
 opt.completeopt = "menu,menuone,noselect"     -- 补全菜单行为：显示菜单，即使只有一项，不自动选择
 opt.pumheight = 10                            -- 弹出菜单最大显示10项
 opt.pumblend = 10                             -- 弹出菜单透明度（0-100）
-opt.wildmode = "longest:full,full"          -- 命令行补全模式
 
 -- ============================================================================
 -- 高级编辑功能
 -- ============================================================================
-opt.virtualedit = "block"                     -- 在可视块模式下允许光标移动到没有文本的位置
-opt.diffopt:append("vertical,context:99")   -- diff模式：垂直分割，显示大量上下文
-opt.formatoptions = "jcroqlnt"              -- 文本格式化选项
-opt.jumpoptions = "view"                    -- 跳转选项
-opt.spelllang = { "en" }                    -- 拼写检查语言
+-- opt.virtualedit = "block"                     -- 在可视块模式下允许光标移动到没有文本的位置
+-- opt.diffopt:append("vertical,context:99")   -- diff模式：垂直分割，显示大量上下文
+-- opt.formatoptions = "jcroqlnt"              -- 文本格式化选项
+-- opt.jumpoptions = "view"                    -- 跳转选项
+-- opt.spelllang = { "en" }                    -- 拼写检查语言
 
 
 -- ============================================================================
