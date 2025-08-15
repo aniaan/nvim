@@ -11,7 +11,7 @@
   "mini.pairs": { "branch": "main", "commit": "1e1ca3f60f58d4050bf814902b472eec9963a5dd" },
   "nvim-treesitter": { "branch": "main", "commit": "cabbd52bb8d461ca1e6858c0476933256917de62" },
   "nvim-treesitter-textobjects": { "branch": "main", "commit": "b54cec389e98c5b0babbe618773acec927437cab" },
-  "render-markdown.nvim": { "branch": "main", "commit": "3da7bb459f6cff03980dd1e106c46f3e62ff4d9f" },
+  "render-markdown.nvim": { "branch": "main", "commit": "7b37aaba005df5744fc7a6bd4225983576b2a950" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" }
 }
