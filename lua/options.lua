@@ -48,6 +48,7 @@ opt.number = false                             -- 显示行号
 opt.relativenumber = false                     -- 显示相对行号
 opt.cmdheight = 0                             -- 命令行高度为0（极简模式）
 opt.laststatus = 3                            -- 全局状态栏
+opt.confirm = true
 opt.ruler = false                             -- 禁用默认标尺
 opt.showmode = false                          -- 不显示模式（因为有状态栏）
 opt.showtabline = 0

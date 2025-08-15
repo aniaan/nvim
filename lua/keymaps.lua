@@ -9,10 +9,6 @@ map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr =
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
--- 滚动时保持光标居中
--- map("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down and Center" })
--- map("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up and Center" })
-
 -- 全选
 map("n", "<C-a>", "ggVG", { desc = "Select All" })
 
@@ -45,21 +41,68 @@ map("n", "\\", "<C-w>", { desc = "Show Window menu", remap = true })
 -- ============================================================================
 -- 行移动和文本操作
 -- ============================================================================
--- 移动行（普通模式）
-map("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Line Down" })
-map("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Line Up" })
+local function move_line(direction)
+  local count = vim.v.count1
+  local cmd = direction == "down" and string.format("move .+%d", count) or string.format("move .-%d", count + 1)
+  vim.cmd(cmd)
+  vim.cmd("normal! ==")
+end
 
--- 移动行（插入模式）
-map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Line Down" })
-map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Line Up" })
+local function move_block(direction)
+  local count = vim.v.count1
+  local cmd = direction == "down" and string.format("'<,'>move '>+%d", count)
+    or string.format("'<,'>move '<-%d", count + 1)
+  vim.cmd(cmd)
+  vim.cmd("normal! gv=gv")
+end
+
+-- 移动行（普通模式）
+map("n", "<A-j>", function()
+  move_line("down")
+end, { desc = "Move Line Down" })
+
+map("n", "<A-k>", function()
+  move_line("up")
+end, { desc = "Move Line Up" })
 
 -- 移动选中块（可视模式）
-map("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Block Down" })
-map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Block Up" })
+map("v", "<A-j>", function()
+  move_block("down")
+end, { desc = "Move Block Down" })
+map("v", "<A-k>", function()
+  move_block("up")
+end, { desc = "Move Block Up" })
 
--- 更好的缩进（保持选择）
-map("v", "<", "<gv", { desc = "Indent Left" })
-map("v", ">", ">gv", { desc = "Indent Right" })
+-- 缩进辅助函数
+local function indent(direction)
+  local count = vim.v.count1
+  local cmd = direction == "left" and "<<" or ">>"
+  for _ = 1, count do
+    vim.cmd("normal! " .. cmd)
+  end
+end
+
+local function indent_block(direction)
+  indent(direction)
+  vim.cmd("normal! gv")
+end
+
+-- 普通模式缩进
+map("n", "<A-h>", function()
+  indent("left")
+end, { desc = "Indent Left" })
+
+map("n", "<A-l>", function()
+  indent("right")
+end, { desc = "Indent Right" })
+
+-- 可视模式缩进
+map("v", "<A-h>", function()
+  indent_block("left")
+end, { desc = "Indent Block Left" })
+map("v", "<A-l>", function()
+  indent_block("right")
+end, { desc = "Indent Block Right" })
 
 -- ============================================================================
 -- 缓冲区导航
