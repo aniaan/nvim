@@ -1,19 +1,19 @@
 return {
   {
-    require("consts").MARKDOWN,
+    require('consts').MARKDOWN,
     opts = {
       render_modes = false,
       code = {
         sign = false,
-        width = "block",
+        width = 'block',
         right_pad = 1,
       },
       heading = {
         sign = false,
         icons = {},
       },
-      file_types = { "markdown", "Avante" },
+      file_types = { 'markdown', 'Avante' },
     },
-    ft = { "Avante", "markdown" },
+    ft = { 'Avante', 'markdown' },
   },
 }

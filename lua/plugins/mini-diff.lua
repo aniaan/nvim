@@ -1,14 +1,14 @@
 return {
   {
-    require("consts").MINI_DIFF,
-    event = "VeryLazy",
+    require('consts').MINI_DIFF,
+    event = 'VeryLazy',
     opts = {
       view = {
-        style = "sign",
+        style = 'sign',
         signs = {
-          add = "┃",
-          change = "┃",
-          delete = "-",
+          add = '┃',
+          change = '┃',
+          delete = '-',
         },
       },
     },
