@@ -22,6 +22,7 @@ local opt = vim.opt
 opt.termguicolors = true              -- 启用真彩色支持，让颜色更丰富准确
 opt.mouse = "a"                       -- 在所有模式下启用鼠标支持
 opt.mousescroll = "ver:3,hor:0"       -- 鼠标滚轮设置：垂直滚动3行，禁用水平滚动
+opt.swapfile = false
 opt.undofile = true                   -- 启用持久化撤销，重启后仍可撤销
 opt.cursorline = true                 -- 高亮当前行
 opt.wrap = false                    -- 禁用自动换行
