@@ -74,7 +74,7 @@ opt.winminwidth = 5                   -- 最小窗口宽度
 -- 光标和滚动设置
 -- ============================================================================
 opt.guicursor =                     -- 光标样式设置，禁用闪烁
-  "n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor,t:ver25-Cursor/lCursor"
+  "n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor,t:ver25-Cursor"
 
 opt.smoothscroll = true             -- 启用平滑滚动
 
