@@ -63,16 +63,16 @@ return {
       if output.code == 0 then
         if output.stdout then
           local result = vim.json.decode(output.stdout)
-          if result["workspace_root"] then
-            cargo_workspace_root = vim.fs.normalize(result["workspace_root"])
-          end
+          if result["workspace_root"] then cargo_workspace_root = vim.fs.normalize(result["workspace_root"]) end
         end
 
         on_dir(cargo_workspace_root or cargo_crate_dir)
       else
-        vim.schedule(function()
-          vim.notify(("[rust_analyzer] cmd failed with code %d: %s\n%s"):format(output.code, cmd, output.stderr))
-        end)
+        vim.schedule(
+          function()
+            vim.notify(("[rust_analyzer] cmd failed with code %d: %s\n%s"):format(output.code, cmd, output.stderr))
+          end
+        )
       end
     end)
   end,

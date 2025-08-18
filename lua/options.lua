@@ -142,34 +142,34 @@ opt.shortmess:append("aoOstTWIcCFS")
 -- 定义粘贴函数，用于SSH环境
 local function paste()
   return {
-    vim.fn.split(vim.fn.getreg(''), '\n'),
-    vim.fn.getregtype(''),
+    vim.fn.split(vim.fn.getreg(""), "\n"),
+    vim.fn.getregtype(""),
   }
 end
 
 -- 如果在SSH环境中，使用OSC52协议进行剪贴板同步
 if vim.env.SSH_TTY then
   vim.g.clipboard = {
-    name = 'OSC52',
+    name = "OSC52",
     copy = {
-      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
     },
     paste = {
-      ['+'] = paste,
-      ['*'] = paste,
+      ["+"] = paste,
+      ["*"] = paste,
     },
   }
 end
 
-if vim.fn.exists('syntax_on') ~= 1 then vim.cmd('syntax enable') end
+if vim.fn.exists("syntax_on") ~= 1 then vim.cmd("syntax enable") end
 
 vim.filetype.add({
   pattern = {
-    ['.*/kitty/.+%.conf'] = 'kitty',
-    ['.*/ghostty/config'] = 'ghostty',
-    ['%.env%.[%w_.-]+'] = 'sh',
+    [".*/kitty/.+%.conf"] = "kitty",
+    [".*/ghostty/config"] = "ghostty",
+    ["%.env%.[%w_.-]+"] = "sh",
   },
 })
-vim.treesitter.language.register('bash', 'kitty')
-vim.treesitter.language.register('bash', 'ghostty')
+vim.treesitter.language.register("bash", "kitty")
+vim.treesitter.language.register("bash", "ghostty")

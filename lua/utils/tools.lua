@@ -3,7 +3,7 @@ local H = {}
 local R = {}
 
 H.binary_to_decimal = function(binary)
-  if not binary or binary == '' then return end
+  if not binary or binary == "" then return end
 
   local decimal = 0
   local binary_len = string.len(binary)
@@ -15,15 +15,15 @@ H.binary_to_decimal = function(binary)
 end
 
 H.str_decimal_to_binary = function(word)
-  if not word or word == '' then return end
+  if not word or word == "" then return end
 
   local decimal = tonumber(word)
 
-  if decimal == 0 then return '0' end
+  if decimal == 0 then return "0" end
 
   if decimal < 0 then return nil end
 
-  local binary = ''
+  local binary = ""
   while decimal > 0 do
     binary = decimal % 2 .. binary
     decimal = math.floor(decimal / 2)
@@ -38,10 +38,10 @@ M.pick_tool = function()
   end
 
   Snacks.picker.pick({
-    source = 'tools',
+    source = "tools",
     items = tools,
-    format = 'text',
-    layout = require('utils.picker').normal_layout.layout,
+    format = "text",
+    layout = require("utils.picker").normal_layout.layout,
     confirm = function(picker, item)
       picker:close()
       local tool_name = item.text
@@ -50,7 +50,7 @@ M.pick_tool = function()
           if R[tool_name] then
             R[tool_name]()
           else
-            vim.notify('Tool not found: ' .. tool_name, vim.log.levels.ERROR)
+            vim.notify("Tool not found: " .. tool_name, vim.log.levels.ERROR)
           end
         end)
       end
@@ -59,22 +59,22 @@ M.pick_tool = function()
 end
 
 H.convert_current_word_to_x = function(convert_func)
-  local word = vim.fn.expand('<cword>')
+  local word = vim.fn.expand("<cword>")
 
   local value = convert_func(word)
 
   if not value then
-    vim.notify('Could to convert', vim.log.levels.ERROR)
+    vim.notify("Could to convert", vim.log.levels.ERROR)
     return
   end
 
-  local line = vim.fn.line('.')
+  local line = vim.fn.line(".")
 
-  local start_pos = vim.fn.searchpos('\\<' .. word .. '\\>', 'bcn')
-  local end_pos = vim.fn.searchpos('\\<' .. word .. '\\>', 'cen')
+  local start_pos = vim.fn.searchpos("\\<" .. word .. "\\>", "bcn")
+  local end_pos = vim.fn.searchpos("\\<" .. word .. "\\>", "cen")
 
   if start_pos[2] == 0 or end_pos[2] == 0 then
-    vim.notify('Could not find word boundaries', vim.log.levels.ERROR)
+    vim.notify("Could not find word boundaries", vim.log.levels.ERROR)
     return
   end
 
@@ -141,37 +141,37 @@ Important:
 ]]
 
 R.fetch_leetcode_problem_to_buffer = function()
-  local curl = require('plenary.curl')
+  local curl = require("plenary.curl")
 
   if not vim.env.OPENAI_API_KEY then
-    vim.notify('OPENAI_API_KEY environment variable not set', vim.log.levels.ERROR)
+    vim.notify("OPENAI_API_KEY environment variable not set", vim.log.levels.ERROR)
     return
   end
 
-  local problem_number = vim.fn.input('Problem number: ')
-  if problem_number == '' then
-    vim.notify('Problem number cannot be empty')
+  local problem_number = vim.fn.input("Problem number: ")
+  if problem_number == "" then
+    vim.notify("Problem number cannot be empty")
     return
   end
 
   local prompt = string.format(fetch_leetcode_problem_prompt_temlate, problem_number, problem_number)
 
-  local url = 'https://openrouter.ai/api/v1/chat/completions'
+  local url = "https://openrouter.ai/api/v1/chat/completions"
   local key = vim.env.OPENAI_API_KEY
-  local model = 'anthropic/claude-3.7-sonnet'
+  local model = "anthropic/claude-3.7-sonnet"
 
   curl.post({
     url = url,
     headers = {
-      ['Content-Type'] = 'application/json',
-      ['Authorization'] = 'Bearer ' .. key,
+      ["Content-Type"] = "application/json",
+      ["Authorization"] = "Bearer " .. key,
     },
     body = vim.fn.json_encode({
       model = model,
       temperature = 0.0,
       messages = {
         {
-          role = 'user',
+          role = "user",
           content = prompt,
         },
       },
@@ -179,16 +179,16 @@ R.fetch_leetcode_problem_to_buffer = function()
     callback = function(response)
       vim.schedule(function()
         if response.status ~= 200 then
-          vim.notify('API request failed: ' .. vim.inspect(response), vim.log.levels.ERROR)
+          vim.notify("API request failed: " .. vim.inspect(response), vim.log.levels.ERROR)
           return
         end
 
         local decoded = vim.fn.json_decode(response.body)
         local content = decoded.choices[1].message.content
         -- content replace '```rust' and '```' to empty str
-        content = string.gsub(content, '```rust', '')
-        content = string.gsub(content, '```', '')
-        vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(content, '\n'))
+        content = string.gsub(content, "```rust", "")
+        content = string.gsub(content, "```", "")
+        vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(content, "\n"))
       end)
     end,
   })

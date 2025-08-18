@@ -9,7 +9,7 @@ return {
         globals = {
           "vim",
           "Snacks",
-          "MiniIcons"
+          "MiniIcons",
         },
       },
       runtime = {

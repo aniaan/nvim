@@ -1,16 +1,16 @@
 local M = {}
 function M.cowboy()
   local ok = true
-  for _, key in ipairs({ 'h', 'j', 'k', 'l', '+', '-' }) do
+  for _, key in ipairs({ "h", "j", "k", "l", "+", "-" }) do
     local count = 0
     local timer = assert(vim.uv.new_timer())
     local map = key
-    vim.keymap.set('n', key, function()
+    vim.keymap.set("n", key, function()
       if vim.v.count > 0 then count = 0 end
-      if count >= 10 and vim.bo.buftype ~= 'nofile' then
-        ok = pcall(vim.notify, 'Hold it Cowboy!', vim.log.levels.WARN, {
-          icon = '🤠',
-          id = 'cowboy',
+      if count >= 10 and vim.bo.buftype ~= "nofile" then
+        ok = pcall(vim.notify, "Hold it Cowboy!", vim.log.levels.WARN, {
+          icon = "🤠",
+          id = "cowboy",
           keep = function() return count >= 10 end,
         })
         if not ok then return map end
@@ -27,18 +27,18 @@ local function make_flycheck_params() return { textDocument = vim.lsp.util.make_
 
 ---@param cmd 'run' | 'clear' | 'cancel'
 function M.rust_flycheck(cmd)
-  local params = cmd == 'run' and make_flycheck_params() or nil
-  local method = 'rust-analyzer/' .. cmd .. 'Flycheck'
+  local params = cmd == "run" and make_flycheck_params() or nil
+  local method = "rust-analyzer/" .. cmd .. "Flycheck"
   -- get_active_clients
   local filter = {
-    name = 'rust_analyzer',
+    name = "rust_analyzer",
     method = method,
     bufnr = 0,
   }
 
   local clients = vim.lsp.get_clients(filter)
   if #clients == 0 then
-    vim.notify('No rust-analyzer client found')
+    vim.notify("No rust-analyzer client found")
     return
   end
 

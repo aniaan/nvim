@@ -2,16 +2,16 @@
 vim.diagnostic.config({
   virtual_text = {
     spacing = 2,
-    source = 'if_many',
+    source = "if_many",
   },
   update_in_insert = false,
   severity_sort = true,
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = ' ',
-      [vim.diagnostic.severity.WARN] = ' ',
-      [vim.diagnostic.severity.HINT] = ' ',
-      [vim.diagnostic.severity.INFO] = ' ',
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
     },
   },
 })
@@ -22,62 +22,62 @@ local M = {}
 
 M.keys = {
   {
-    lhs = 'gd',
+    lhs = "gd",
     rhs = function() Snacks.picker.lsp_definitions() end,
-    opts = { desc = 'Goto Definition' },
+    opts = { desc = "Goto Definition" },
   },
   {
-    lhs = 'gr',
+    lhs = "gr",
     rhs = function() Snacks.picker.lsp_references() end,
-    opts = { desc = 'References', nowait = true },
+    opts = { desc = "References", nowait = true },
   },
   {
-    lhs = 'gI',
+    lhs = "gI",
     rhs = function() Snacks.picker.lsp_implementations() end,
 
-    opts = { desc = 'Goto Implementation' },
+    opts = { desc = "Goto Implementation" },
   },
   {
-    lhs = 'gy',
+    lhs = "gy",
     rhs = function() Snacks.picker.lsp_type_definitions() end,
-    opts = { desc = 'Goto T[y]pe Definition' },
+    opts = { desc = "Goto T[y]pe Definition" },
   },
   {
-    lhs = 'gD',
+    lhs = "gD",
     rhs = vim.lsp.buf.declaration,
-    opts = { desc = 'Goto Declaration' },
+    opts = { desc = "Goto Declaration" },
   },
   {
-    lhs = 'K',
+    lhs = "K",
     rhs = function() return vim.lsp.buf.hover() end,
-    opts = { desc = 'Hover' },
+    opts = { desc = "Hover" },
   },
   {
-    lhs = 'gK',
+    lhs = "gK",
     rhs = function() return vim.lsp.buf.signature_help() end,
-    opts = { desc = 'Signature Help' },
+    opts = { desc = "Signature Help" },
   },
   {
-    lhs = '<c-k>',
+    lhs = "<c-k>",
     rhs = function() return vim.lsp.buf.signature_help() end,
-    mode = 'i',
-    opts = { desc = 'Signature Help' },
+    mode = "i",
+    opts = { desc = "Signature Help" },
   },
   {
-    lhs = '<leader>ca',
+    lhs = "<leader>ca",
     rhs = vim.lsp.buf.code_action,
-    mode = { 'n', 'v' },
-    opts = { desc = 'Code Action' },
+    mode = { "n", "v" },
+    opts = { desc = "Code Action" },
   },
   {
-    lhs = '<leader>cr',
+    lhs = "<leader>cr",
     rhs = vim.lsp.buf.rename,
-    opts = { desc = 'Rename' },
+    opts = { desc = "Rename" },
   },
   {
-    lhs = '<leader>cR',
+    lhs = "<leader>cR",
     rhs = function() Snacks.rename.rename_file() end,
-    opts = { desc = 'Rename File' },
+    opts = { desc = "Rename File" },
   },
 }
 
@@ -89,7 +89,7 @@ local function on_attach(client, bufnr)
   ---@param rhs string|function
   ---@param mode? string|string[]
   local function keymap(lhs, rhs, mode, opts)
-    mode = mode or 'n'
+    mode = mode or "n"
     vim.keymap.set(mode, lhs, rhs, opts)
   end
 
@@ -101,7 +101,7 @@ local function on_attach(client, bufnr)
 
   for _, keys in pairs(M.keys) do
     if not keys.has or has(keys.has) then
-      local opts = vim.tbl_extend('force', {}, keys.opts or {})
+      local opts = vim.tbl_extend("force", {}, keys.opts or {})
       opts.silent = opts.silent ~= false
       opts.buffer = bufnr
 
@@ -112,8 +112,8 @@ local function on_attach(client, bufnr)
   if has(methods.textDocument_inlayHint) then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end
 end
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'Configure LSP keymaps',
+vim.api.nvim_create_autocmd("LspAttach", {
+  desc = "Configure LSP keymaps",
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
@@ -125,12 +125,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- Set up LSP servers.
-vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
   once = true,
   callback = function()
     local server_configs = vim
-      .iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
-      :map(function(file) return vim.fn.fnamemodify(file, ':t:r') end)
+      .iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
+      :map(function(file) return vim.fn.fnamemodify(file, ":t:r") end)
       :totable()
     vim.lsp.enable(server_configs)
   end,

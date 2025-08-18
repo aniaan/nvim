@@ -1,7 +1,7 @@
 return {
   {
-    require('consts').MINI_PAIRS,
-    event = 'VeryLazy',
+    require("consts").MINI_PAIRS,
+    event = "VeryLazy",
     opts = {
       modes = { insert = true, command = true, terminal = false },
       -- -- skip autopair when next character is one of these

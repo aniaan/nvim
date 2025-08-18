@@ -1,36 +1,36 @@
-local consts = require('consts')
+local consts = require("consts")
 local symbol_kinds = {
-  Array = '󰅪',
-  Class = '',
-  Color = '󰏘',
-  Constant = '󰏿',
-  Constructor = '',
-  Enum = '',
-  EnumMember = '',
-  Event = '',
-  Field = '󰜢',
-  File = '󰈙',
-  Folder = '󰉋',
-  Function = '󰆧',
-  Interface = '',
-  Keyword = '󰌋',
-  Method = '󰆧',
-  Module = '',
-  Operator = '󰆕',
-  Property = '󰜢',
-  Reference = '󰈇',
-  Snippet = '',
-  Struct = '',
-  Text = '',
-  TypeParameter = '',
-  Unit = '',
-  Value = '',
-  Variable = '󰫧',
+  Array = "󰅪",
+  Class = "",
+  Color = "󰏘",
+  Constant = "󰏿",
+  Constructor = "",
+  Enum = "",
+  EnumMember = "",
+  Event = "",
+  Field = "󰜢",
+  File = "󰈙",
+  Folder = "󰉋",
+  Function = "󰆧",
+  Interface = "",
+  Keyword = "󰌋",
+  Method = "󰆧",
+  Module = "",
+  Operator = "󰆕",
+  Property = "󰜢",
+  Reference = "󰈇",
+  Snippet = "",
+  Struct = "",
+  Text = "",
+  TypeParameter = "",
+  Unit = "",
+  Value = "",
+  Variable = "󰫧",
 }
 return {
   {
     consts.BLINK_CMP,
-    version = '*',
+    version = "*",
     lazy = false,
     opts = {
       appearance = {
@@ -43,7 +43,7 @@ return {
       },
 
       sources = {
-        default = { 'lsp', 'snippets', 'buffer' },
+        default = { "lsp", "snippets", "buffer" },
       },
 
       cmdline = {
@@ -51,8 +51,8 @@ return {
       },
 
       keymap = {
-        preset = 'enter',
-        ['<C-y>'] = { 'select_and_accept' },
+        preset = "enter",
+        ["<C-y>"] = { "select_and_accept" },
       },
     },
   },

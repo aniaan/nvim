@@ -1,8 +1,8 @@
-local Picker = require('utils.picker')
+local Picker = require("utils.picker")
 
 return {
   {
-    require('consts').SNACKS,
+    require("consts").SNACKS,
     priority = 1000,
     lazy = false,
     opts = {
@@ -28,9 +28,9 @@ return {
 ╰──────────────────────────────────────────────╯
           ]],
           keys = {
-            { icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
-            { icon = '󰒲 ', key = 'l', desc = 'Lazy', action = ':Lazy' },
-            { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
+            { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+            { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
         },
       },
@@ -64,14 +64,14 @@ return {
       },
     },
     keys = {
-      { '<leader>n', false },
+      { "<leader>n", false },
       {
-        '<leader>N',
+        "<leader>N",
         function() Snacks.picker.notifications() end,
-        desc = 'Notification History',
+        desc = "Notification History",
       },
       {
-        '<leader><space>',
+        "<leader><space>",
         function()
           Snacks.picker.files({
             cwd = vim.uv.cwd(),
@@ -79,10 +79,10 @@ return {
             exclude = Picker.exclude_pattern,
           })
         end,
-        desc = 'Find Files (Root Dir)',
+        desc = "Find Files (Root Dir)",
       },
       {
-        '<leader>/',
+        "<leader>/",
         function()
           Snacks.picker.grep({
             cwd = vim.uv.cwd(),
@@ -90,72 +90,72 @@ return {
             exclude = Picker.exclude_pattern,
           })
         end,
-        desc = 'Grep (Root Dir)',
+        desc = "Grep (Root Dir)",
       },
 
       {
-        '<leader>.',
+        "<leader>.",
         function() Snacks.picker.lsp_symbols() end,
-        desc = 'Goto Symbol',
+        desc = "Goto Symbol",
       },
 
       {
-        '<leader>>',
+        "<leader>>",
         function() Snacks.picker.lsp_workspace_symbols() end,
-        desc = 'Goto Symbol (Workspace)',
+        desc = "Goto Symbol (Workspace)",
       },
       {
-        '<leader>fe',
+        "<leader>fe",
         function() Snacks.explorer() end,
-        desc = 'Explorer Snacks (root dir)',
+        desc = "Explorer Snacks (root dir)",
       },
-      { '<leader>e', '<leader>fe', desc = 'Explorer Snacks (root dir)', remap = true },
+      { "<leader>e", "<leader>fe", desc = "Explorer Snacks (root dir)", remap = true },
 
       {
-        '<leader>,',
+        "<leader>,",
         function() Snacks.picker.buffers() end,
-        desc = 'Buffers',
+        desc = "Buffers",
       },
       {
-        '<leader>sH',
+        "<leader>sH",
         function() Snacks.picker.highlights() end,
-        desc = 'Highlights',
+        desc = "Highlights",
       },
     },
     config = function(_, opts)
-      require('snacks').setup(opts)
-      Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
-      Snacks.toggle.diagnostics():map('<leader>ud')
-      Snacks.toggle.line_number():map('<leader>ul')
-      Snacks.toggle.inlay_hints():map('<leader>uh')
+      require("snacks").setup(opts)
+      Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+      Snacks.toggle.diagnostics():map("<leader>ud")
+      Snacks.toggle.line_number():map("<leader>ul")
+      Snacks.toggle.inlay_hints():map("<leader>uh")
     end,
   },
 
   {
-    'folke/flash.nvim',
+    "folke/flash.nvim",
     optional = true,
     specs = {
       {
-        'folke/snacks.nvim',
+        "folke/snacks.nvim",
         opts = {
           picker = {
             win = {
               input = {
                 keys = {
-                  ['<a-s>'] = { 'flash', mode = { 'n', 'i' } },
-                  ['s'] = { 'flash' },
+                  ["<a-s>"] = { "flash", mode = { "n", "i" } },
+                  ["s"] = { "flash" },
                 },
               },
             },
             actions = {
               flash = function(picker)
-                require('flash').jump({
-                  pattern = '^',
+                require("flash").jump({
+                  pattern = "^",
                   label = { after = { 0, 0 } },
                   search = {
-                    mode = 'search',
+                    mode = "search",
                     exclude = {
-                      function(win) return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= 'snacks_picker_list' end,
+                      function(win) return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "snacks_picker_list" end,
                     },
                   },
                   action = function(match)

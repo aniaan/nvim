@@ -2,12 +2,8 @@ local hues = require("base46.hue")
 
 local M = setmetatable({}, {
   __index = function(M, k)
-    if type(k) ~= "string" then
-      return
-    end
-    if k == "type" then
-      return vim.o.background
-    end
+    if type(k) ~= "string" then return end
+    if k == "type" then return vim.o.background end
 
     if k == "config" then
       math.randomseed(vim.loop.hrtime())

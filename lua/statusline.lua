@@ -46,9 +46,7 @@ MiniStatusline.active = function()
 end
 
 --- Compute content for inactive window
-MiniStatusline.inactive = function()
-  return "%#MiniStatuslineInactive#%F%="
-end
+MiniStatusline.inactive = function() return "%#MiniStatuslineInactive#%F%=" end
 
 --- Combine groups of sections
 ---
@@ -67,27 +65,17 @@ end
 ---@return string String suitable for 'statusline'.
 MiniStatusline.combine_groups = function(groups)
   local parts = vim.tbl_map(function(s)
-    if type(s) == "string" then
-      return s
-    end
-    if type(s) ~= "table" then
-      return ""
-    end
+    if type(s) == "string" then return s end
+    if type(s) ~= "table" then return "" end
 
-    local string_arr = vim.tbl_filter(function(x)
-      return type(x) == "string" and x ~= ""
-    end, s.strings or {})
+    local string_arr = vim.tbl_filter(function(x) return type(x) == "string" and x ~= "" end, s.strings or {})
     local str = table.concat(string_arr, " ")
 
     -- Use previous highlight group
-    if s.hl == nil then
-      return " " .. str .. " "
-    end
+    if s.hl == nil then return " " .. str .. " " end
 
     -- Allow using this highlight group later
-    if str:len() == 0 then
-      return "%#" .. s.hl .. "#"
-    end
+    if str:len() == 0 then return "%#" .. s.hl .. "#" end
 
     return string.format("%%#%s# %s ", s.hl, str)
   end, groups)
@@ -146,28 +134,20 @@ end
 --- <
 ---@return __statusline_section
 MiniStatusline.section_diagnostics = function(args)
-  if MiniStatusline.is_truncated(args.trunc_width) then
-    return ""
-  end
+  if MiniStatusline.is_truncated(args.trunc_width) then return "" end
 
   -- Construct string parts. NOTE: call `diagnostic_is_disabled()` *after*
   -- check for present `count` to not source `vim.diagnostic` on startup.
   local count = H.diagnostic_counts[vim.api.nvim_get_current_buf()]
-  if count == nil or H.diagnostic_is_disabled() then
-    return ""
-  end
+  if count == nil or H.diagnostic_is_disabled() then return "" end
 
   local severity, signs, t = vim.diagnostic.severity, args.signs or {}, {}
   for _, level in ipairs(H.diagnostic_levels) do
     local n = count[severity[level.name]] or 0
     -- Add level info only if diagnostic is present
-    if n > 0 then
-      table.insert(t, " " .. (signs[level.name] or level.sign) .. n)
-    end
+    if n > 0 then table.insert(t, " " .. (signs[level.name] or level.sign) .. n) end
   end
-  if #t == 0 then
-    return ""
-  end
+  if #t == 0 then return "" end
 
   local icon = ""
   return icon .. table.concat(t, "")
@@ -179,17 +159,11 @@ local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤"
 
 ---@param args __statusline_args Use `args.icon` to supply your own icon.
 MiniStatusline.section_lsp_progress = function(args)
-  if MiniStatusline.is_truncated(args.trunc_width) then
-    return ""
-  end
+  if MiniStatusline.is_truncated(args.trunc_width) then return "" end
 
-  if not lsp_msg then
-    return ""
-  end
+  if not lsp_msg then return "" end
 
-  if vim.startswith(vim.api.nvim_get_mode().mode, "i") then
-    return ""
-  end
+  if vim.startswith(vim.api.nvim_get_mode().mode, "i") then return "" end
 
   return "%#MiniStatuslineLsp#" .. lsp_msg
 end
@@ -204,9 +178,7 @@ end
 ---
 ---@return __statusline_section
 MiniStatusline.section_filename = function(args)
-  if vim.bo.buftype ~= "" then
-    return ""
-  end
+  if vim.bo.buftype ~= "" then return "" end
   return "%f%m%r"
 end
 
@@ -225,19 +197,13 @@ end
 ---
 ---@return __statusline_section
 MiniStatusline.section_fileinfo = function(args)
-  if vim.bo.buftype ~= "" then
-    return ""
-  end
+  if vim.bo.buftype ~= "" then return "" end
 
   local filetype = vim.bo.filetype
-  if MiniIcons ~= nil and filetype ~= "" then
-    filetype = MiniIcons.get("filetype", filetype) .. " " .. filetype
-  end
+  if MiniIcons ~= nil and filetype ~= "" then filetype = MiniIcons.get("filetype", filetype) .. " " .. filetype end
 
   -- Construct output string if truncated or buffer is not normal
-  if MiniStatusline.is_truncated(args.trunc_width) then
-    return filetype
-  end
+  if MiniStatusline.is_truncated(args.trunc_width) then return filetype end
 
   -- Construct output string with extra file info
   local encoding = vim.bo.fileencoding or vim.bo.encoding
@@ -259,9 +225,7 @@ end
 ---@return __statusline_section
 MiniStatusline.section_location = function(args)
   -- Use virtual column number to allow update when past last column
-  if MiniStatusline.is_truncated(args.trunc_width) then
-    return "%l│%2v"
-  end
+  if MiniStatusline.is_truncated(args.trunc_width) then return "%l│%2v" end
 
   -- Use `virtcol()` to correctly handle multi-byte characters
   return '%l|%L│%2v|%-2{virtcol("$") - 1}'
@@ -282,19 +246,13 @@ end
 ---
 ---@return __statusline_section
 MiniStatusline.section_searchcount = function(args)
-  if vim.v.hlsearch == 0 or MiniStatusline.is_truncated(args.trunc_width) then
-    return ""
-  end
+  if vim.v.hlsearch == 0 or MiniStatusline.is_truncated(args.trunc_width) then return "" end
   -- `searchcount()` can return errors because it is evaluated very often in
   -- statusline. For example, when typing `/` followed by `\(`, it gives E54.
   local ok, s_count = pcall(vim.fn.searchcount, (args or {}).options or { recompute = true })
-  if not ok or s_count.current == nil or s_count.total == 0 then
-    return ""
-  end
+  if not ok or s_count.current == nil or s_count.total == 0 then return "" end
 
-  if s_count.incomplete == 1 then
-    return "?/?"
-  end
+  if s_count.incomplete == 1 then return "?/?" end
 
   local too_many = ">" .. s_count.maxcount
   local current = s_count.current > s_count.maxcount and too_many or s_count.current
@@ -329,17 +287,13 @@ H.create_autocommands = function()
   au("DiagnosticChanged", "*", track_diagnostics, "Track diagnostics")
 
   au("LspProgress", { "begin", "report", "end" }, function(args)
-    if not args.data then
-      return
-    end
+    if not args.data then return end
 
     local data = args.data.params.value
     local kind = data.kind
     if kind == "end" then
       lsp_msg = ""
-      vim.defer_fn(function()
-        vim.cmd.redrawstatus()
-      end, 500)
+      vim.defer_fn(function() vim.cmd.redrawstatus() end, 500)
     else
       local percentage = data.percentage or 100
       local idx = math.max(1, math.floor(percentage / 10))
@@ -379,18 +333,12 @@ H.modes = setmetatable({
 -- stylua: ignore end
 
 -- Diagnostics ----------------------------------------------------------------
-H.get_diagnostic_count = function(buf_id)
-  return vim.diagnostic.count(buf_id)
-end
+H.get_diagnostic_count = function(buf_id) return vim.diagnostic.count(buf_id) end
 
-H.diagnostic_is_disabled = function()
-  return not vim.diagnostic.is_enabled({ bufnr = 0 })
-end
+H.diagnostic_is_disabled = function() return not vim.diagnostic.is_enabled({ bufnr = 0 }) end
 
 -- Utilities ------------------------------------------------------------------
-H.error = function(msg)
-  error("(mini.statusline) " .. msg, 0)
-end
+H.error = function(msg) error("(mini.statusline) " .. msg, 0) end
 
 H.get_filesize = function()
   local size = math.max(vim.fn.line2byte(vim.fn.line("$") + 1) - 1, 0)

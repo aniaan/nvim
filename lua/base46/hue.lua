@@ -290,13 +290,9 @@ end
 ---   require('mini.hues').apply_palette(palette)
 --- <
 MiniHues.apply_palette = function(palette, plugins)
-  if type(palette) ~= "table" then
-    H.error("`palette` should be table with palette colors.")
-  end
+  if type(palette) ~= "table" then H.error("`palette` should be table with palette colors.") end
   plugins = plugins or MiniHues.config.plugins
-  if type(plugins) ~= "table" then
-    H.error("`plugins` should be table with plugin integrations data.")
-  end
+  if type(plugins) ~= "table" then H.error("`plugins` should be table with plugin integrations data.") end
 
   -- Prepare highlighting application. Notes:
   -- - Clear current highlight only if other theme was loaded previously.
@@ -310,9 +306,7 @@ MiniHues.apply_palette = function(palette, plugins)
   -- vim.g.colors_name = nil
 
   local p = palette
-  local hi = function(name, data)
-    vim.api.nvim_set_hl(0, name, data)
-  end
+  local hi = function(name, data) vim.api.nvim_set_hl(0, name, data) end
 
   -- NOTE: recommendations for adding new highlight groups:
   -- - Put all related groups (like for new plugin) in single paragraph.
@@ -957,12 +951,8 @@ end
 ---   color hex strings.
 MiniHues.gen_random_base_colors = function(opts)
   opts = opts or {}
-  local gen_hue = opts.gen_hue or function()
-    return math.random(0, 359)
-  end
-  if not vim.is_callable(gen_hue) then
-    H.error("`gen_hue` should be callable.")
-  end
+  local gen_hue = opts.gen_hue or function() return math.random(0, 359) end
+  if not vim.is_callable(gen_hue) then H.error("`gen_hue` should be callable.") end
 
   local is_dark = vim.o.background == "dark"
   local bg_l = is_dark and 15 or 90
@@ -1088,9 +1078,7 @@ end
 -- Palette --------------------------------------------------------------------
 H.make_hues = function(bg_h, fg_h, n_hues)
   local res = { bg = bg_h, fg = fg_h }
-  if n_hues == 0 then
-    return res
-  end
+  if n_hues == 0 then return res end
 
   -- Generate equidistant circular grid of hues which is the most distant from
   -- background and foreground hues. Distance between two sets is assumed as
@@ -1100,15 +1088,9 @@ H.make_hues = function(bg_h, fg_h, n_hues)
 
   -- - Compute delta which determines the furthest grid
   local d
-  if bg_h == nil and fg_h == nil then
-    d = 0
-  end
-  if bg_h ~= nil and fg_h == nil then
-    d = (bg_h % period + half_period) % period
-  end
-  if bg_h == nil and fg_h ~= nil then
-    d = (fg_h % period + half_period) % period
-  end
+  if bg_h == nil and fg_h == nil then d = 0 end
+  if bg_h ~= nil and fg_h == nil then d = (bg_h % period + half_period) % period end
+  if bg_h == nil and fg_h ~= nil then d = (fg_h % period + half_period) % period end
   if bg_h ~= nil and fg_h ~= nil then
     local ref_bg, ref_fg = bg_h % period, fg_h % period
     local mid = 0.5 * (ref_bg + ref_fg)
@@ -1123,12 +1105,8 @@ H.make_hues = function(bg_h, fg_h, n_hues)
   end
 
   -- Normalize equidistant grid to be base 8 colors
-  local dist_fun = function(x, y)
-    return H.dist_period(x, y, 360)
-  end
-  local approx = function(ref_hue)
-    return H.get_closest(ref_hue, grid, dist_fun)
-  end
+  local dist_fun = function(x, y) return H.dist_period(x, y, 360) end
+  local approx = function(ref_hue) return H.get_closest(ref_hue, grid, dist_fun) end
 
   --stylua: ignore start
   res.red    = approx(0)
@@ -1145,38 +1123,28 @@ H.make_hues = function(bg_h, fg_h, n_hues)
 end
 
 H.validate_hex = function(x, name)
-  if type(x) == "string" and x:find("^#%x%x%x%x%x%x$") ~= nil then
-    return x
-  end
+  if type(x) == "string" and x:find("^#%x%x%x%x%x%x$") ~= nil then return x end
   local msg = string.format('`%s` should be hex color string in the form "#rrggbb", not %s', name, vim.inspect(x))
   H.error(msg)
 end
 
 H.validate_n_hues = function(x)
-  if type(x) == "number" and 0 <= x and x <= 8 then
-    return x
-  end
+  if type(x) == "number" and 0 <= x and x <= 8 then return x end
   local msg = string.format("`n_hues` should be a number between 0 and 8", name)
   H.error(msg)
 end
 
 H.validate_one_of = function(x, choices, name)
-  if vim.tbl_contains(choices, x) then
-    return x
-  end
+  if vim.tbl_contains(choices, x) then return x end
   local choices_string = table.concat(vim.tbl_map(vim.inspect, choices), ", ")
   local msg = string.format("`%s` should be one of ", name, choices_string)
   H.error(msg)
 end
 
 -- Color conversion -----------------------------------------------------------
-H.hex2oklch = function(hex)
-  return H.oklab2oklch(H.rgb2oklab(H.hex2rgb(hex)))
-end
+H.hex2oklch = function(hex) return H.oklab2oklch(H.rgb2oklab(H.hex2rgb(hex))) end
 
-H.oklch2hex = function(lch)
-  return H.rgb2hex(H.oklab2rgb(H.oklch2oklab(H.clip_to_gamut(lch))))
-end
+H.oklch2hex = function(lch) return H.rgb2hex(H.oklab2rgb(H.oklch2oklab(H.clip_to_gamut(lch)))) end
 
 -- HEX <-> RGB in [0; 255]
 H.hex2rgb = function(hex)
@@ -1217,12 +1185,8 @@ H.rgb2oklab = function(rgb)
   local B = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_
 
   -- Explicitly convert to gray for nearly achromatic colors
-  if math.abs(A) < 1e-4 then
-    A = 0
-  end
-  if math.abs(B) < 1e-4 then
-    B = 0
-  end
+  if math.abs(A) < 1e-4 then A = 0 end
+  if math.abs(B) < 1e-4 then B = 0 end
 
   -- Normalize to appropriate range
   return { l = H.correct_lightness(100 * L), a = 100 * A, b = 100 * B }
@@ -1252,17 +1216,13 @@ H.oklab2oklch = function(lab)
   local c = math.sqrt(lab.a ^ 2 + lab.b ^ 2)
   -- Treat grays specially
   local h = nil
-  if c > 0 then
-    h = H.rad2degree(math.atan2(lab.b, lab.a))
-  end
+  if c > 0 then h = H.rad2degree(math.atan2(lab.b, lab.a)) end
   return { l = lab.l, c = c, h = h }
 end
 
 H.oklch2oklab = function(lch)
   -- Treat grays specially
-  if lch.c <= 0 or lch.h == nil then
-    return { l = lch.l, a = 0, b = 0 }
-  end
+  if lch.c <= 0 or lch.h == nil then return { l = lch.l, a = 0, b = 0 } end
 
   local a = lch.c * math.cos(H.degree2rad(lch.h))
   local b = lch.c * math.sin(H.degree2rad(lch.h))
@@ -1270,19 +1230,13 @@ H.oklch2oklab = function(lch)
 end
 
 -- Degree in [0; 360] <-> Radian in [0; 2*pi]
-H.rad2degree = function(x)
-  return (x % H.tau) * 360 / H.tau
-end
+H.rad2degree = function(x) return (x % H.tau) * 360 / H.tau end
 
-H.degree2rad = function(x)
-  return (x % 360) * H.tau / 360
-end
+H.degree2rad = function(x) return (x % 360) * H.tau / 360 end
 
 -- Functions for RGB channel correction. Assumes input in [0; 1] range
 -- https://bottosson.github.io/posts/colorwrong/#what-can-we-do%3F
-H.correct_channel = function(x)
-  return 0.04045 < x and math.pow((x + 0.055) / 1.055, 2.4) or (x / 12.92)
-end
+H.correct_channel = function(x) return 0.04045 < x and math.pow((x + 0.055) / 1.055, 2.4) or (x / 12.92) end
 
 H.correct_channel_inv = function(x)
   return (0.0031308 >= x) and (12.92 * x) or (1.055 * math.pow(x, 0.416666667) - 0.055)
@@ -1319,9 +1273,7 @@ H.get_gamut_points = function(lch)
   c_upper = H.clip(c_upper, 0, math.huge)
 
   -- Other points can be computed only in presence of actual chroma
-  if c == nil then
-    return { c_upper = c_upper }
-  end
+  if c == nil then return { c_upper = c_upper } end
 
   -- Intersection of segment between (c, l) and (0, l_cusp) with gamut boundary
   -- Used for gamut clipping
@@ -1351,16 +1303,12 @@ H.clip_to_gamut = function(lch)
   local res = vim.deepcopy(lch)
 
   -- Gray is always in gamut
-  if res.h == nil then
-    return res
-  end
+  if res.h == nil then return res end
 
   local gamut_points = H.get_gamut_points(lch)
 
   local is_inside_gamut = lch.c <= gamut_points.c_upper
-  if is_inside_gamut then
-    return res
-  end
+  if is_inside_gamut then return res end
 
   -- Clip by going towards (0, l_cusp) until in gamut
   res.l, res.c = gamut_points.l_cusp_clip, gamut_points.c_cusp_clip
@@ -1370,31 +1318,21 @@ end
 
 -- ============================================================================
 -- Utilities ------------------------------------------------------------------
-H.error = function(msg)
-  error("(mini.hues) " .. msg, 0)
-end
+H.error = function(msg) error("(mini.hues) " .. msg, 0) end
 
 H.check_type = function(name, val, ref, allow_nil)
-  if type(val) == ref or (ref == "callable" and vim.is_callable(val)) or (allow_nil and val == nil) then
-    return
-  end
+  if type(val) == ref or (ref == "callable" and vim.is_callable(val)) or (allow_nil and val == nil) then return end
   H.error(string.format("`%s` should be %s, not %s", name, ref, type(val)))
 end
 
 H.round = function(x)
-  if x == nil then
-    return nil
-  end
+  if x == nil then return nil end
   return math.floor(x + 0.5)
 end
 
-H.clip = function(x, from, to)
-  return math.min(math.max(x, from), to)
-end
+H.clip = function(x, from, to) return math.min(math.max(x, from), to) end
 
-H.cuberoot = function(x)
-  return math.pow(x, 0.333333)
-end
+H.cuberoot = function(x) return math.pow(x, 0.333333) end
 
 H.dist_period = function(x, y, period)
   period = period or 360
