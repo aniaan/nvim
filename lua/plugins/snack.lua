@@ -11,7 +11,7 @@ return {
       input = { enabled = true },
       notifier = { enabled = true },
       scope = { enabled = true },
-      statuscolumn = { enabled = true },
+      statuscolumn = { enabled = false },
       explorer = { enabled = true },
 
       dashboard = {
