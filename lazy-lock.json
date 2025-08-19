@@ -8,7 +8,7 @@
   "mini.diff": { "branch": "main", "commit": "f573bd2ae2eb225ea2f125126b8869e04bcaf231" },
   "mini.icons": { "branch": "main", "commit": "b8f6fa6f5a3fd0c56936252edcd691184e5aac0c" },
   "mini.pairs": { "branch": "main", "commit": "1e1ca3f60f58d4050bf814902b472eec9963a5dd" },
-  "nvim-treesitter": { "branch": "main", "commit": "32cb9f9b9db71b0dc2454817727cd9a5d840658c" },
+  "nvim-treesitter": { "branch": "main", "commit": "2f28a14ed229bb534a9ef92591d1d17b392b0c0e" },
   "nvim-treesitter-textobjects": { "branch": "main", "commit": "b54cec389e98c5b0babbe618773acec927437cab" },
   "render-markdown.nvim": { "branch": "main", "commit": "ec74afa498b6ce3ee686131adf2b3941b713f307" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },
