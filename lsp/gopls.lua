@@ -1,8 +1,28 @@
+local function is_library(fname)
+  local goroot = os.getenv("GOROOT") .. "/src"
+  local mod_cache = os.getenv("GOMODCACHE")
+
+  for _, item in ipairs({ goroot, mod_cache }) do
+    if vim.fs.relpath(item, fname) then
+      local clients = vim.lsp.get_clients({ name = "gopls" })
+      return #clients > 0 and clients[#clients].config.root_dir or nil
+    end
+  end
+end
+
 ---@type vim.lsp.Config
 return {
   cmd = { "gopls" },
   filetypes = { "go", "gomod", "gowork", "gotmpl", "gosum" },
-  root_markers = { "go.mod", "go.work" },
+  root_dir = function(bufnr, on_dir)
+    local fname = vim.api.nvim_buf_get_name(bufnr)
+    local reused_dir = is_library(fname)
+    if reused_dir then
+      on_dir(reused_dir)
+      return
+    end
+    on_dir(vim.fs.root(fname, "go.work") or vim.fs.root(fname, "go.mod") or vim.fs.root(fname, ".git"))
+  end,
   settings = {
     gopls = {
       gofumpt = true,
