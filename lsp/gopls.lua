@@ -21,7 +21,11 @@ return {
       on_dir(reused_dir)
       return
     end
-    on_dir(vim.fs.root(fname, "go.work") or vim.fs.root(fname, "go.mod") or vim.fs.root(fname, ".git"))
+    on_dir(vim.fs.root(fname, {
+      "go.work",
+      "go.mod",
+      ".git",
+    }))
   end,
   settings = {
     gopls = {
