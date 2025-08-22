@@ -5,9 +5,7 @@ return {
     version = "*",
     lazy = false,
     opts = {
-      appearance = {
-        -- kind_icons = symbol_kinds,
-      },
+      fuzzy = { implementation = "rust" },
       completion = {
         documentation = {
           auto_show = true,
@@ -19,12 +17,14 @@ return {
       },
 
       cmdline = {
-        enabled = false,
+        keymap = {
+          ["<Tab>"] = { "show", "accept" },
+        },
+        completion = { menu = { auto_show = true } },
       },
 
       keymap = {
         preset = "enter",
-        ["<C-y>"] = { "select_and_accept" },
       },
     },
   },
