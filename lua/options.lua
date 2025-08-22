@@ -42,10 +42,10 @@ opt.shiftround = true   -- 缩进时四舍五入到 shiftwidth 的倍数
 -- ============================================================================
 opt.list = true                                -- 显示不可见字符（空格、Tab等）
 opt.listchars = "tab:» ,trail:·,nbsp:·"      -- 设置不可见字符的显示样式
-opt.signcolumn = "yes"                         -- 始终显示标志列，避免文本跳动
+opt.signcolumn = "number"                         -- 始终显示标志列，避免文本跳动
 opt.linebreak = true                            -- 在单词边界处换行，不会截断单词
-opt.number = false                             -- 显示行号
-opt.relativenumber = false                     -- 显示相对行号
+opt.number = true                             -- 显示行号
+-- opt.relativenumber = false                     -- 显示相对行号
 opt.cmdheight = 0                             -- 命令行高度为0（极简模式）
 opt.laststatus = 3                            -- 全局状态栏
 opt.confirm = true
