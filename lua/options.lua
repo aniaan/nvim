@@ -1,60 +1,60 @@
 -- stylua: ignore start
 -- ============================================================================
--- Leader 键设置
+-- Leader key configuration
 -- ============================================================================
-vim.g.mapleader = " "      -- 设置主 leader 键为空格
-vim.g.maplocalleader = " " -- 设置本地 leader 键为反斜杠（ 默认）
+vim.g.mapleader = " "      -- Set main leader key to space
+vim.g.maplocalleader = " " -- Set local leader key to space
 vim.g.snacks_animate = false
 
 -- ============================================================================
--- 性能优化 - 禁用不需要的功能
+-- Performance optimization - disable unnecessary providers
 -- ============================================================================
-vim.g.loaded_python3_provider = 0  -- 禁用Python3提供者，提高启动速度
-vim.g.loaded_perl_provider = 0     -- 禁用Perl提供者
-vim.g.loaded_ruby_provider = 0     -- 禁用Ruby提供者
-vim.g.loaded_node_provider = 0     -- 禁用Node.js提供者
+vim.g.loaded_python3_provider = 0  -- Disable Python3 provider to improve startup speed
+vim.g.loaded_perl_provider = 0     -- Disable Perl provider
+vim.g.loaded_ruby_provider = 0     -- Disable Ruby provider
+vim.g.loaded_node_provider = 0     -- Disable Node.js provider
 
 local opt = vim.opt
 
 -- ============================================================================
--- 基础编辑器设置
+-- Basic editor settings
 -- ============================================================================
-opt.termguicolors = true              -- 启用真彩色支持，让颜色更丰富准确
-opt.mouse = "a"                       -- 在所有模式下启用鼠标支持
-opt.mousescroll = "ver:3,hor:0"       -- 鼠标滚轮设置：垂直滚动3行，禁用水平滚动
-opt.swapfile = false
-opt.undofile = true                   -- 启用持久化撤销，重启后仍可撤销
-opt.cursorline = true                 -- 高亮当前行
-opt.wrap = false                    -- 禁用自动换行
-opt.clipboard = "unnamedplus"     -- 非 SSH 环境下与系统剪贴板同步
+opt.termguicolors = true              -- Enable true color support for richer, more accurate colors
+opt.mouse = "a"                       -- Enable mouse support in all modes
+opt.mousescroll = "ver:3,hor:0"       -- Mouse scroll settings: 3 lines vertical, disable horizontal
+opt.swapfile = false                  -- Disable swap files
+opt.undofile = true                   -- Enable persistent undo, survives restarts
+opt.cursorline = true                 -- Highlight current line
+opt.wrap = false                      -- Disable line wrapping
+opt.clipboard = "unnamedplus"         -- Sync with system clipboard (non-SSH environments)
 
 -- ============================================================================
--- 缩进和制表符设置
+-- Indentation and tab settings
 -- ============================================================================
-opt.sw = 2              -- 自动缩进时使用2个空格（ 默认）
-opt.ts = 2              -- Tab键显示为2个空格的宽度（ 默认）
-opt.et = true           -- 将Tab键转换为空格
-opt.smartindent = true  -- 智能缩进，根据语法自动调整缩进
-opt.shiftround = true   -- 缩进时四舍五入到 shiftwidth 的倍数
+opt.sw = 2              -- Use 2 spaces for auto-indentation (shiftwidth)
+opt.ts = 2              -- Display tab as 2 spaces width (tabstop)
+opt.et = true           -- Convert tabs to spaces (expandtab)
+opt.smartindent = true  -- Smart indentation based on syntax
+opt.shiftround = true   -- Round indentation to multiples of shiftwidth
 
 -- ============================================================================
--- 显示和界面设置
+-- Display and interface settings
 -- ============================================================================
-opt.list = true                                -- 显示不可见字符（空格、Tab等）
-opt.listchars = "tab:» ,trail:·,nbsp:·"      -- 设置不可见字符的显示样式
-opt.signcolumn = "number"                         -- 始终显示标志列，避免文本跳动
-opt.linebreak = true                            -- 在单词边界处换行，不会截断单词
-opt.number = true                             -- 显示行号
--- opt.relativenumber = false                     -- 显示相对行号
-opt.cmdheight = 0                             -- 命令行高度为0（极简模式）
-opt.laststatus = 3                            -- 全局状态栏
-opt.confirm = true
-opt.ruler = false                             -- 禁用默认标尺
-opt.showmode = false                          -- 不显示模式（因为有状态栏）
-opt.showtabline = 0
+opt.list = true                                -- Show invisible characters (spaces, tabs, etc.)
+opt.listchars = "tab:» ,trail:·,nbsp:·"      -- Set display style for invisible characters
+opt.signcolumn = "number"                     -- Merge sign column with number column
+opt.linebreak = true                          -- Break lines at word boundaries, don't split words
+opt.number = true                             -- Show line numbers
+-- opt.relativenumber = false                 -- Show relative line numbers
+opt.cmdheight = 0                             -- Command line height 0 (minimal mode)
+opt.laststatus = 3                            -- Global statusline
+opt.confirm = true                            -- Confirm before unsaved changes
+opt.ruler = false                             -- Disable default ruler
+opt.showmode = false                          -- Don't show mode (statusline shows it)
+opt.showtabline = 0                           -- Never show tabline
 
 
--- 填充字符设置
+-- Fill character settings
 opt.fillchars = {
   foldopen = "",
   foldclose = "",
@@ -64,81 +64,81 @@ opt.fillchars = {
   eob = " ",
 }
 
--- 窗口设置
-opt.splitbelow = true                 -- 新窗口在当前窗口下方打开
-opt.splitright = true                -- 新窗口在当前窗口右侧打开
-opt.splitkeep = "screen"              -- 保持屏幕位置
-opt.winminwidth = 5                   -- 最小窗口宽度
+-- Window settings
+opt.splitbelow = true                 -- Open new windows below current window
+opt.splitright = true                -- Open new windows to the right of current window
+opt.splitkeep = "screen"              -- Keep screen position when splitting
+opt.winminwidth = 5                   -- Minimum window width
 
 -- ============================================================================
--- 光标和滚动设置
+-- Cursor and scrolling settings
 -- ============================================================================
-opt.guicursor =                     -- 光标样式设置，禁用闪烁
+opt.guicursor =                     -- Cursor style settings, disable blinking
   "n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor,t:ver25-Cursor"
 
-opt.smoothscroll = true             -- 启用平滑滚动
+opt.smoothscroll = true             -- Enable smooth scrolling
 
 -- ============================================================================
--- 折叠设置
+-- Folding settings
 -- ============================================================================
-opt.foldlevelstart = 99    -- 打开文件时展开所有折叠
-opt.foldtext = ""
+opt.foldlevelstart = 99    -- Expand all folds when opening files
+opt.foldtext = ""          -- Use default fold text
 
 -- ============================================================================
--- 搜索设置
+-- Search settings
 -- ============================================================================
-opt.ignorecase = true        -- 搜索时忽略大小写
-opt.smartcase = true         -- 如果搜索包含大写字母，则区分大小写
+opt.ignorecase = true        -- Ignore case when searching
+opt.smartcase = true         -- Override ignorecase if search contains uppercase letters
 
 -- ============================================================================
--- 时间和响应设置
+-- Timing and responsiveness settings
 -- ============================================================================
-opt.updatetime = 300      -- 保存交换文件和触发 CursorHold 的时间（毫秒）
-opt.timeoutlen = 500        -- 等待按键序列的时间，VSCode 中设置更长
-opt.ttimeoutlen = 10        -- 等待终端按键码的时间（毫秒）
+opt.updatetime = 300      -- Time to save swap file and trigger CursorHold (milliseconds)
+opt.timeoutlen = 500      -- Time to wait for key sequence completion
+opt.ttimeoutlen = 10      -- Time to wait for terminal key codes (milliseconds)
 
 -- ============================================================================
--- 补全和弹出菜单设置
+-- Completion and popup menu settings
 -- ============================================================================
-opt.wildignore:append({ ".DS_Store" })      -- 文件补全时忽略.DS_Store文件
-opt.completeopt = "menu,menuone,noselect"     -- 补全菜单行为：显示菜单，即使只有一项，不自动选择
-opt.pumheight = 10                            -- 弹出菜单最大显示10项
-opt.pumblend = 10                             -- 弹出菜单透明度（0-100）
+opt.wildignore:append({ ".DS_Store" })      -- Ignore .DS_Store files in file completion
+opt.completeopt = "menu,menuone,noselect"   -- Completion menu behavior: show menu, even for single item, no auto-select
+opt.pumheight = 10                          -- Maximum popup menu height (10 items)
+opt.pumblend = 10                           -- Popup menu transparency (0-100)
 
 -- ============================================================================
--- 高级编辑功能
+-- Advanced editing features
 -- ============================================================================
--- opt.virtualedit = "block"                     -- 在可视块模式下允许光标移动到没有文本的位置
--- opt.diffopt:append("vertical,context:99")   -- diff模式：垂直分割，显示大量上下文
--- opt.formatoptions = "jcroqlnt"              -- 文本格式化选项
--- opt.jumpoptions = "view"                    -- 跳转选项
--- opt.spelllang = { "en" }                    -- 拼写检查语言
+-- opt.virtualedit = "block"                     -- Allow cursor beyond line end in visual block mode
+-- opt.diffopt:append("vertical,context:99")   -- Diff mode: vertical split, show extensive context
+-- opt.formatoptions = "jcroqlnt"              -- Text formatting options
+-- opt.jumpoptions = "view"                    -- Jump options
+-- opt.spelllang = { "en" }                    -- Spell check language
 
 
 -- ============================================================================
--- 消息和通知设置
+-- Messages and notifications settings
 -- ============================================================================
--- shortmess 选项说明:
--- a: 启用所有缩写 (l+m+r+w) - "999L,888B", "[+]", "[RO]", "[w]"
--- o: 覆盖文件写入后的读取消息 (减少 :wn 和 autowrite 重复消息)
--- O: 读取文件消息覆盖之前的消息 (减少消息堆积)
--- s: 不显示搜索命中底部/顶部的消息
--- t: 截断过长的文件消息
--- T: 截断过长的其他消息
--- W: 不显示文件写入时的消息 "[w]" 和 "[a]"
--- I: 不显示启动时的介绍信息
--- c: 不显示补全菜单中的消息
--- C: 不显示扫描补全项时的消息 ("scanning tags")
--- F: 不显示文件信息 (如保存时的行数统计)
--- S: 不显示搜索统计信息 ("[1/5]")
+-- shortmess options explanation:
+-- a: Enable all abbreviations (l+m+r+w) - "999L,888B", "[+]", "[RO]", "[w]"
+-- o: Overwrite file-read message with file-write message (reduce :wn and autowrite duplicates)
+-- O: File-read message overwrites previous message (reduce message accumulation)
+-- s: Don't show search hit bottom/top messages
+-- t: Truncate too long file messages
+-- T: Truncate too long other messages
+-- W: Don't show file write messages "[w]" and "[a]"
+-- I: Don't show intro message on startup
+-- c: Don't show completion menu messages
+-- C: Don't show messages while scanning for completions ("scanning tags")
+-- F: Don't show file info (like line count when saving)
+-- S: Don't show search count messages ("[1/5]")
 opt.shortmess:append("aoOstTWIcCFS")
 
 -- stylua: ignore end
 
 -- ============================================================================
--- SSH环境下的剪贴板支持
+-- SSH environment clipboard support
 -- ============================================================================
--- 定义粘贴函数，用于SSH环境
+-- Define paste function for SSH environments
 local function paste()
   return {
     vim.fn.split(vim.fn.getreg(""), "\n"),
@@ -146,7 +146,7 @@ local function paste()
   }
 end
 
--- 如果在SSH环境中，使用OSC52协议进行剪贴板同步
+-- If in SSH environment, use OSC52 protocol for clipboard synchronization
 if vim.env.SSH_TTY then
   vim.g.clipboard = {
     name = "OSC52",
