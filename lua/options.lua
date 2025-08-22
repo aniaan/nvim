@@ -14,7 +14,7 @@ vim.g.loaded_perl_provider = 0     -- Disable Perl provider
 vim.g.loaded_ruby_provider = 0     -- Disable Ruby provider
 vim.g.loaded_node_provider = 0     -- Disable Node.js provider
 
-local opt = vim.opt
+local opt = vim.o
 
 -- ============================================================================
 -- Basic editor settings
@@ -55,14 +55,11 @@ opt.showtabline = 0                           -- Never show tabline
 
 
 -- Fill character settings
-opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
-}
+
+opt.fillchars = table.concat(
+  { 'eob: ', 'fold:╌', 'horiz:═', 'horizdown:╦', 'horizup:╩', 'vert:║', 'verthoriz:╬', 'vertleft:╣', 'vertright:╠' },
+  ','
+)
 
 -- Window settings
 opt.splitbelow = true                 -- Open new windows below current window
@@ -100,8 +97,7 @@ opt.ttimeoutlen = 10      -- Time to wait for terminal key codes (milliseconds)
 -- ============================================================================
 -- Completion and popup menu settings
 -- ============================================================================
-opt.wildignore:append({ ".DS_Store" })      -- Ignore .DS_Store files in file completion
-opt.completeopt = "menu,menuone,noselect"   -- Completion menu behavior: show menu, even for single item, no auto-select
+opt.completeopt = "menuone,noselect,fuzzy,nosort"
 opt.pumheight = 10                          -- Maximum popup menu height (10 items)
 opt.pumblend = 10                           -- Popup menu transparency (0-100)
 
@@ -131,7 +127,7 @@ opt.pumblend = 10                           -- Popup menu transparency (0-100)
 -- C: Don't show messages while scanning for completions ("scanning tags")
 -- F: Don't show file info (like line count when saving)
 -- S: Don't show search count messages ("[1/5]")
-opt.shortmess:append("aoOstTWIcCFS")
+opt.shortmess = "aoOstTWIcCFS"
 
 -- stylua: ignore end
 
