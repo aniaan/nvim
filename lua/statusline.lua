@@ -9,8 +9,7 @@ local H = {}
 MiniStatusline.setup = function()
   -- Export module
   _G.MiniStatusline = MiniStatusline
-  vim.go.statusline =
-    "%{%(nvim_get_current_win()==#g:actual_curwin || &laststatus==3) ? v:lua.MiniStatusline.active() : v:lua.MiniStatusline.inactive()%}"
+  vim.go.statusline = "%!v:lua.MiniStatusline.active()"
 
   -- Define behavior
   H.create_autocommands()
@@ -24,7 +23,6 @@ end
 MiniStatusline.active = function()
   local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
   local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
-  local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
   local location = MiniStatusline.section_location({ trunc_width = 75 })
   local lsp_progress = MiniStatusline.section_lsp_progress({ trunc_width = 75 })
 
@@ -38,7 +36,6 @@ MiniStatusline.active = function()
     { hl = "MiniStatuslineFilename", strings = { "" } },
     "%=", -- End left alignment
     { hl = "MiniStatuslineFilename", strings = { lsp_progress } },
-    { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
     { hl = mode_hl, strings = { location } },
   })
 end
@@ -178,36 +175,6 @@ end
 MiniStatusline.section_filename = function(args)
   if vim.bo.buftype ~= "" then return "" end
   return "%f%m%r"
-end
-
---- Section for file information
----
---- Shows 'filetype', 'fileencoding' / 'encoding', 'fileformat', and buffer size.
---- Short output has only non-empty 'filetype' and is returned if window width is
---- lower than `args.trunc_width` or buffer is not normal (as per 'buftype').
----
---- Buffer size is computed based on current text, not file's saved version.
----
---- If `config.use_icons` is true and icon provider is present (see
---- "Dependencies" section in |mini.statusline|), shows icon near the filetype.
----
----@param args __statusline_args
----
----@return __statusline_section
-MiniStatusline.section_fileinfo = function(args)
-  if vim.bo.buftype ~= "" then return "" end
-
-  local filetype = vim.bo.filetype
-  if MiniIcons ~= nil and filetype ~= "" then filetype = MiniIcons.get("filetype", filetype) .. " " .. filetype end
-
-  -- Construct output string if truncated or buffer is not normal
-  if MiniStatusline.is_truncated(args.trunc_width) then return filetype end
-
-  -- Construct output string with extra file info
-  local encoding = vim.bo.fileencoding or vim.bo.encoding
-  local format = vim.bo.fileformat
-
-  return string.format("%s%s%s[%s]", filetype, filetype == "" and "" or " ", encoding, format)
 end
 
 --- Section for location inside buffer
