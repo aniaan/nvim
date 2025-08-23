@@ -2,11 +2,7 @@ local M = {}
 
 function M.get()
   local current_file = vim.fn.expand("%:p")
-
-  if current_file == "" then return " %#Winbar#[No Name]" end
-
   local project_root = vim.fn.getcwd()
-
   local display_path
 
   if vim.startswith(current_file, project_root) then
