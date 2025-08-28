@@ -18,5 +18,7 @@ M.MARKDOWN = "MeanderingProgrammer/render-markdown.nvim"
 M.MINI_AI = "echasnovski/mini.ai"
 M.MINI_DIFF = "echasnovski/mini.diff"
 M.MINI_ICONS = "echasnovski/mini.icons"
+M.MINI_PAIRS = "echasnovski/mini.pairs"
+
 
 return M

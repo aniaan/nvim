@@ -60,6 +60,7 @@ return {
           lsp_type_definitions = Picker.normal_layout,
           lsp_workspace_symbols = Picker.normal_layout,
           explorer = Picker.explorer_layout,
+          marks = Picker.normal_layout,
         },
       },
     },
@@ -121,6 +122,11 @@ return {
         function() Snacks.picker.highlights() end,
         desc = "Highlights",
       },
+      {
+        "<leader>sm",
+        function() Snacks.picker.marks() end,
+        desc = "Marks",
+      }
     },
     config = function(_, opts)
       require("snacks").setup(opts)

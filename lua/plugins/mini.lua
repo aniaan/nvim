@@ -18,4 +18,31 @@ return {
       })
     end,
   },
+  {
+    require("consts").MINI_DIFF,
+    event = "VeryLazy",
+    opts = {},
+  },
+
+  {
+    require("consts").MINI_ICONS,
+    lazy = true,
+    opts = {
+      file = {
+        [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
+        ["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
+      },
+      filetype = {
+        dotenv = { glyph = "", hl = "MiniIconsYellow" },
+      },
+    },
+  },
+
+  {
+    require("consts").MINI_PAIRS,
+    event = "VeryLazy",
+    opts = {
+      modes = { insert = true, command = true, terminal = false },
+    },
+  },
 }
