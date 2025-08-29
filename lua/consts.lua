@@ -15,10 +15,10 @@ M.TREESITTER_OBJECTS = "nvim-treesitter/nvim-treesitter-textobjects"
 
 M.MARKDOWN = "MeanderingProgrammer/render-markdown.nvim"
 
-M.MINI_AI = "echasnovski/mini.ai"
-M.MINI_DIFF = "echasnovski/mini.diff"
-M.MINI_ICONS = "echasnovski/mini.icons"
-M.MINI_PAIRS = "echasnovski/mini.pairs"
+M.MINI_AI = "nvim-mini/mini.ai"
+M.MINI_DIFF = "nvim-mini/mini.diff"
+M.MINI_ICONS = "nvim-mini/mini.icons"
+M.MINI_PAIRS = "nvim-mini/mini.pairs"
 
 
 return M
