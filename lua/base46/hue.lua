@@ -970,9 +970,7 @@ MiniHues.gen_random_base_colors = function(opts)
 end
 
 MiniHues.show_config = function()
-  -- 使用 vim.inspect() 将表转换为字符串
   local config_string = vim.inspect(MiniHues.config)
-  -- 将转换后的字符串传递给 vim.notify()
   vim.notify(config_string, vim.log.levels.INFO, { title = "MiniHues Config" })
 end
 
