@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup("highlight_yank"),
-  callback = function() (vim.hl or vim.highlight).on_yank() end,
+  callback = function() vim.hl.on_yank() end,
 })
 
 -- go to last loc when opening a buffer
