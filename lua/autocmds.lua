@@ -23,6 +23,16 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("bigfile"),
+  desc = "Disable features in big files",
+  pattern = "bigfile",
+  callback = function(args)
+    vim.notify("disable features in bigfile")
+    vim.schedule(function() vim.bo[args.buf].syntax = vim.filetype.match({ buf = args.buf }) or "" end)
+  end,
+})
+
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("close_with_q"),

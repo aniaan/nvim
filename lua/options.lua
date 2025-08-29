@@ -159,12 +159,3 @@ end
 
 if vim.fn.exists("syntax_on") ~= 1 then vim.cmd("syntax enable") end
 
-vim.filetype.add({
-  pattern = {
-    [".*/kitty/.+%.conf"] = "kitty",
-    [".*/ghostty/config"] = "ghostty",
-    ["%.env%.[%w_.-]+"] = "sh",
-  },
-})
-vim.treesitter.language.register("bash", "kitty")
-vim.treesitter.language.register("bash", "ghostty")
