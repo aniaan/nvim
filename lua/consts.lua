@@ -11,7 +11,7 @@ M.SNACKS = folke .. "snacks.nvim"
 M.WHICH_KEY = folke .. "which-key.nvim"
 M.LAZYDEV = folke .. "lazydev.nvim"
 
-local treesitter  = "nvim-treesitter/"
+local treesitter = "nvim-treesitter/"
 M.TREESITTER = treesitter .. "nvim-treesitter"
 M.TREESITTER_OBJECTS = treesitter .. "nvim-treesitter-textobjects"
 
@@ -22,6 +22,5 @@ M.MINI_AI = mini .. "mini.ai"
 M.MINI_DIFF = mini .. "mini.diff"
 M.MINI_ICONS = mini .. "mini.icons"
 M.MINI_PAIRS = mini .. "mini.pairs"
-
 
 return M
