@@ -1,4 +1,5 @@
 local M = {}
+local Icons = require("mini.icons")
 
 function M.get()
   local current_file = vim.fn.expand("%:p")
@@ -23,7 +24,7 @@ function M.get()
 
   -- Get icon with its highlight group
   local filename = parts[#parts]
-  local icon, highlight = MiniIcons.get("file", filename)
+  local icon, highlight = Icons.get("file", filename)
 
   local result = {}
 
