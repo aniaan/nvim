@@ -24,7 +24,7 @@ MiniStatusline.active = function()
   local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
   local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
   local location = MiniStatusline.section_location({ trunc_width = 75 })
-  local lsp_progress = MiniStatusline.section_lsp_progress({ trunc_width = 75 })
+  local lsp_progress, lsp_hl = MiniStatusline.section_lsp_progress({ trunc_width = 75 })
 
   -- Usage of `MiniStatusline.combine_groups()` ensures highlighting and
   -- correct padding with spaces between groups (accounts for 'missing'
@@ -35,7 +35,7 @@ MiniStatusline.active = function()
     "%<", -- Mark general truncate point
     { hl = "MiniStatuslineFilename", strings = { "" } },
     "%=", -- End left alignment
-    { hl = "MiniStatuslineFilename", strings = { lsp_progress } },
+    { hl = lsp_hl, strings = { lsp_progress } },
     { hl = mode_hl, strings = { location } },
   })
 end
@@ -154,13 +154,13 @@ local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤"
 
 ---@param args __statusline_args Use `args.icon` to supply your own icon.
 MiniStatusline.section_lsp_progress = function(args)
-  if MiniStatusline.is_truncated(args.trunc_width) then return "" end
+  if MiniStatusline.is_truncated(args.trunc_width) then return "", nil end
 
-  if lsp_msg == "" then return "" end
+  if lsp_msg == "" then return "", nil end
 
-  if vim.startswith(vim.api.nvim_get_mode().mode, "i") then return "" end
+  if vim.startswith(vim.api.nvim_get_mode().mode, "i") then return "", nil end
 
-  return "%#MiniStatuslineLsp#" .. lsp_msg
+  return lsp_msg, "MiniStatuslineLsp"
 end
 
 --- Section for file name
