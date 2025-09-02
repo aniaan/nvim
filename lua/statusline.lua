@@ -40,9 +40,6 @@ MiniStatusline.active = function()
   })
 end
 
---- Compute content for inactive window
-MiniStatusline.inactive = function() return "%#MiniStatuslineInactive#%F%=" end
-
 --- Combine groups of sections
 ---
 --- Each group can be either a string or a table with fields `hl` (group's
@@ -149,7 +146,6 @@ MiniStatusline.section_diagnostics = function(args)
 end
 
 local lsp_msg = ""
-
 local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥", "" }
 
 ---@param args __statusline_args Use `args.icon` to supply your own icon.
@@ -161,20 +157,6 @@ MiniStatusline.section_lsp_progress = function(args)
   if vim.startswith(vim.api.nvim_get_mode().mode, "i") then return "", nil end
 
   return lsp_msg, "MiniStatuslineLsp"
-end
-
---- Section for file name
----
---- Show full file name or relative in short output.
----
---- Short output is returned if window width is lower than `args.trunc_width`.
----
----@param args __statusline_args
----
----@return __statusline_section
-MiniStatusline.section_filename = function(args)
-  if vim.bo.buftype ~= "" then return "" end
-  return "%f%m%r"
 end
 
 --- Section for location inside buffer
@@ -194,35 +176,6 @@ MiniStatusline.section_location = function(args)
 
   -- Use `virtcol()` to correctly handle multi-byte characters
   return '%l|%L│%2v|%-2{virtcol("$") - 1}'
-end
-
---- Section for current search count
----
---- Show the current status of |searchcount()|. Empty output is returned if
---- window width is lower than `args.trunc_width`, search highlighting is not
---- on (see |v:hlsearch|), or if number of search result is 0.
----
---- `args.options` is forwarded to |searchcount()|. By default it recomputes
---- data on every call which can be computationally expensive (although still
---- usually on 0.1 ms order of magnitude). To prevent this, supply
---- `args.options = { recompute = false }`.
----
----@param args __statusline_args
----
----@return __statusline_section
-MiniStatusline.section_searchcount = function(args)
-  if vim.v.hlsearch == 0 or MiniStatusline.is_truncated(args.trunc_width) then return "" end
-  -- `searchcount()` can return errors because it is evaluated very often in
-  -- statusline. For example, when typing `/` followed by `\(`, it gives E54.
-  local ok, s_count = pcall(vim.fn.searchcount, (args or {}).options or { recompute = true })
-  if not ok or s_count.current == nil or s_count.total == 0 then return "" end
-
-  if s_count.incomplete == 1 then return "?/?" end
-
-  local too_many = ">" .. s_count.maxcount
-  local current = s_count.current > s_count.maxcount and too_many or s_count.current
-  local total = s_count.total > s_count.maxcount and too_many or s_count.total
-  return current .. "/" .. total
 end
 
 -- Showed diagnostic levels
@@ -251,7 +204,7 @@ H.create_autocommands = function()
   end)
   au("DiagnosticChanged", "*", track_diagnostics, "Track diagnostics")
 
-  au("LspProgress", { "begin", "report", "end" }, function(args)
+  local track_lsp_progress = vim.schedule_wrap(function(args)
     if not args.data then return end
 
     local data = args.data.params.value
@@ -265,7 +218,9 @@ H.create_autocommands = function()
       lsp_msg = spinners[idx] .. " " .. percentage .. "%% " .. data.title
       vim.cmd.redrawstatus()
     end
-  end, "Update LSP progress in statusline")
+  end)
+
+  au("LspProgress", { "begin", "report", "end" }, track_lsp_progress, "Track LSP progress")
 end
 
 -- Mode -----------------------------------------------------------------------
@@ -304,16 +259,5 @@ H.diagnostic_is_disabled = function() return not vim.diagnostic.is_enabled({ buf
 
 -- Utilities ------------------------------------------------------------------
 H.error = function(msg) error("(mini.statusline) " .. msg, 0) end
-
-H.get_filesize = function()
-  local size = math.max(vim.fn.line2byte(vim.fn.line("$") + 1) - 1, 0)
-  if size < 1024 then
-    return string.format("%dB", size)
-  elseif size < 1048576 then
-    return string.format("%.2fKiB", size / 1024)
-  else
-    return string.format("%.2fMiB", size / 1048576)
-  end
-end
 
 return MiniStatusline
