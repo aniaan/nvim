@@ -16,7 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 require("options")
 require("keymaps")
 require("autocmds")
-require("base46").setup("mini-hue-azure")
+require("base46").setup("mini-p-winter")
 require("statusline").setup()
 require("lsp")
 
