@@ -1,4 +1,5 @@
 local ensure_installed = {
+  "kitty",
   "bash",
   "c",
   "cpp",
