@@ -10,6 +10,7 @@ M.FLASH = folke .. "flash.nvim"
 M.SNACKS = folke .. "snacks.nvim"
 M.WHICH_KEY = folke .. "which-key.nvim"
 M.LAZYDEV = folke .. "lazydev.nvim"
+M.SIDE_KICK = folke .. "sidekick.nvim"
 
 local treesitter = "nvim-treesitter/"
 M.TREESITTER = treesitter .. "nvim-treesitter"

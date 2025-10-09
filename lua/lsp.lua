@@ -110,6 +110,21 @@ local function on_attach(client, bufnr)
   end
 
   if has(methods.textDocument_inlayHint) then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end
+  if has(methods.textDocument_inlineCompletion) then
+    vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
+    vim.keymap.set(
+      "i",
+      "<C-F>",
+      vim.lsp.inline_completion.get,
+      { desc = "LSP: accept inline completion", buffer = bufnr }
+    )
+    vim.keymap.set(
+      "i",
+      "<C-G>",
+      vim.lsp.inline_completion.select,
+      { desc = "LSP: switch inline completion", buffer = bufnr }
+    )
+  end
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -128,10 +143,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
   once = true,
   callback = function()
-    local server_configs = vim
-      .iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
-      :map(function(file) return vim.fn.fnamemodify(file, ":t:r") end)
-      :totable()
+    -- local server_configs = vim
+    --   .iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
+    --   :map(function(file) return vim.fn.fnamemodify(file, ":t:r") end)
+    --   :totable()
+    local server_configs = {
+      "bashls",
+      "gopls",
+      "jsonls",
+      "lua_ls",
+      "pyright",
+      "rust_analyzer",
+      "taplo",
+      "yamlls",
+    }
     vim.lsp.enable(server_configs)
   end,
 })
