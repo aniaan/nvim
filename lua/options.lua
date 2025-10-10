@@ -14,6 +14,8 @@ vim.g.loaded_perl_provider = 0     -- Disable Perl provider
 vim.g.loaded_ruby_provider = 0     -- Disable Ruby provider
 vim.g.loaded_node_provider = 0     -- Disable Node.js provider
 
+vim.g.copilot_enabled = true       -- Enable GitHub Copilot
+
 local opt = vim.o
 
 -- ============================================================================

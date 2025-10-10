@@ -10,8 +10,8 @@
   "mini.pairs": { "branch": "main", "commit": "b9aada8c0e59f2b938e98fbf4eae0799eba96ad9" },
   "nvim-treesitter": { "branch": "main", "commit": "3ab4f2d2d20be55874e2eb575145c6928d7d7d0e" },
   "nvim-treesitter-textobjects": { "branch": "main", "commit": "1b2d85d3de6114c4bcea89ffb2cd1ce9e3a19931" },
-  "render-markdown.nvim": { "branch": "main", "commit": "2064980580af7f00385859b6344c6a4737383257" },
-  "sidekick.nvim": { "branch": "main", "commit": "5c7a75d7dea2f28ee38d17671d527c0d55586d98" },
+  "render-markdown.nvim": { "branch": "main", "commit": "d53856423be5ef3c267d26ee261b0981b372f718" },
+  "sidekick.nvim": { "branch": "main", "commit": "2cc8e6c4ba6d465b6ca15b050fdc7bfb76399022" },
   "snacks.nvim": { "branch": "main", "commit": "dae80fb393f712bd7352a20f9185f5e16b69f20f" },
   "which-key.nvim": { "branch": "main", "commit": "b4177e3eaf15fe5eb8357ebac2286d488be1ed00" }
 }

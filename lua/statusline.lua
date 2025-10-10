@@ -20,6 +20,7 @@ end
 
 -- Module functionality =======================================================
 --- Compute content for active window
+local copilot_icon = vim.g.copilot_enabled and " " or ""
 MiniStatusline.active = function()
   local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
   local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
@@ -36,6 +37,7 @@ MiniStatusline.active = function()
     { hl = "MiniStatuslineFilename", strings = { "" } },
     "%=", -- End left alignment
     { hl = lsp_hl, strings = { lsp_progress } },
+    { hl = "MiniStatuslineCopilot", strings = { copilot_icon } },
     { hl = mode_hl, strings = { location } },
   })
 end

@@ -2,8 +2,11 @@ return {
   {
     require("consts").SIDE_KICK,
     event = "VeryLazy",
-    enabled = false,
-    opts = {},
+    opts = {
+      nes = {
+        enabled = vim.g.copilot_enabled, -- Enable Next Edit Suggestions
+      },
+    },
     keys = {
       {
         "<tab>",
