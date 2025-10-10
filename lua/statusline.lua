@@ -27,11 +27,13 @@ MiniStatusline.active = function()
   local location = MiniStatusline.section_location({ trunc_width = 75 })
   local lsp_progress, lsp_hl = MiniStatusline.section_lsp_progress({ trunc_width = 75 })
 
+  local modified = vim.bo.modified and "+" or ""
+
   -- Usage of `MiniStatusline.combine_groups()` ensures highlighting and
   -- correct padding with spaces between groups (accounts for 'missing'
   -- sections, etc.)
   return MiniStatusline.combine_groups({
-    { hl = mode_hl, strings = { mode } },
+    { hl = mode_hl, strings = { mode .. modified } },
     { hl = "MiniStatuslineDevinfo", strings = { diagnostics } },
     "%<", -- Mark general truncate point
     { hl = "MiniStatuslineFilename", strings = { "" } },
