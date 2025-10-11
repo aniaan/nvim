@@ -33,10 +33,10 @@ MiniStatusline.active = function()
   -- correct padding with spaces between groups (accounts for 'missing'
   -- sections, etc.)
   return MiniStatusline.combine_groups({
-    { hl = mode_hl, strings = { mode .. modified } },
+    { hl = mode_hl, strings = { mode } },
     { hl = "MiniStatuslineDevinfo", strings = { diagnostics } },
     "%<", -- Mark general truncate point
-    { hl = "MiniStatuslineFilename", strings = { "" } },
+    { hl = "MiniStatuslineFilename", strings = { modified } },
     "%=", -- End left alignment
     { hl = lsp_hl, strings = { lsp_progress } },
     { hl = "MiniStatuslineCopilot", strings = { copilot_icon } },
