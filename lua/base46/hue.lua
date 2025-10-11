@@ -843,7 +843,7 @@ MiniHues.apply_palette = function(palette, plugins)
 
   hi("MiniStatuslineDevinfo", { fg = p.fg_mid, bg = p.bg_mid })
   hi("MiniStatuslineFileinfo", { link = "MiniStatuslineDevinfo" })
-  hi("MiniStatuslineFilename", { fg = p.cyan, bg = p.bg, bold = true })
+  hi("MiniStatuslineFilename", { fg = p.purple, bg = p.bg, bold = true })
   hi("MiniStatuslineInactive", { link = "StatusLineNC" })
   hi("MiniStatuslineModeCommand", { fg = p.bg, bg = p.yellow, bold = true })
   hi("MiniStatuslineModeInsert", { fg = p.bg, bg = p.azure, bold = true })
@@ -853,7 +853,7 @@ MiniHues.apply_palette = function(palette, plugins)
   hi("MiniStatuslineModeVisual", { fg = p.bg, bg = p.green, bold = true })
 
   hi("MiniStatuslineLsp", { fg = p.accent, bg = p.bg })
-  hi("MiniStatuslineCopilot", { fg = p.cyan, bg = p.bg })
+  hi("MiniStatuslineCopilot", { fg = p.purple, bg = p.bg })
 
   hi("LazyButton", { fg = nil, bg = p.bg_mid })
   hi("LazyButtonActive", { fg = nil, bg = p.bg_mid2 })

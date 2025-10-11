@@ -8,10 +8,10 @@
   "mini.diff": { "branch": "main", "commit": "a2df2a9a485328c20252b7cadb11feb717020e45" },
   "mini.icons": { "branch": "main", "commit": "284798619aed9f4c1ac1b9417b9a5e3b4b85ef3a" },
   "mini.pairs": { "branch": "main", "commit": "b9aada8c0e59f2b938e98fbf4eae0799eba96ad9" },
-  "nvim-treesitter": { "branch": "main", "commit": "de003000a287c501a6650a1ddd3be80ee34278d4" },
+  "nvim-treesitter": { "branch": "main", "commit": "763f1e650b91aa951495e709d61597d1222dba65" },
   "nvim-treesitter-textobjects": { "branch": "main", "commit": "1b2d85d3de6114c4bcea89ffb2cd1ce9e3a19931" },
   "render-markdown.nvim": { "branch": "main", "commit": "d53856423be5ef3c267d26ee261b0981b372f718" },
-  "sidekick.nvim": { "branch": "main", "commit": "e91224521feb65ff61da6aa5c58e8ad17654a2d3" },
-  "snacks.nvim": { "branch": "main", "commit": "d91fc7d3fa853422fe4d506220b23394d2c19d38" },
+  "sidekick.nvim": { "branch": "main", "commit": "0bc6f884ae4d807f5414b70d51a34fb813f588f9" },
+  "snacks.nvim": { "branch": "main", "commit": "aaab014bc6094514cfd3fae1d3bae92b8f91d519" },
   "which-key.nvim": { "branch": "main", "commit": "b4177e3eaf15fe5eb8357ebac2286d488be1ed00" }
 }
