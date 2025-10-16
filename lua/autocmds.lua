@@ -70,7 +70,7 @@ vim.api.nvim_create_autocmd("FileType", {
       vim.api.nvim_buf_call(bufnr, function()
         vim.wo.foldmethod = "expr"
         vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.cmd.normal("zx")
       end)
     else
