@@ -112,18 +112,18 @@ local function on_attach(client, bufnr)
   if has(methods.textDocument_inlayHint) then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end
   if has(methods.textDocument_inlineCompletion) then
     vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
-    -- vim.keymap.set(
-    --   "i",
-    --   "<C-F>",
-    --   vim.lsp.inline_completion.get,
-    --   { desc = "LSP: accept inline completion", buffer = bufnr }
-    -- )
-    -- vim.keymap.set(
-    --   "i",
-    --   "<C-G>",
-    --   vim.lsp.inline_completion.select,
-    --   { desc = "LSP: switch inline completion", buffer = bufnr }
-    -- )
+    vim.keymap.set(
+      "i",
+      "<C-F>",
+      vim.lsp.inline_completion.get,
+      { desc = "LSP: accept inline completion", buffer = bufnr }
+    )
+    vim.keymap.set(
+      "i",
+      "<C-G>",
+      vim.lsp.inline_completion.select,
+      { desc = "LSP: switch inline completion", buffer = bufnr }
+    )
   end
 end
 
