@@ -11,7 +11,7 @@
   "nvim-treesitter": { "branch": "main", "commit": "30c466ad571b8b99fd06e3df8b2336e3ae63a53a" },
   "nvim-treesitter-textobjects": { "branch": "main", "commit": "1b2d85d3de6114c4bcea89ffb2cd1ce9e3a19931" },
   "render-markdown.nvim": { "branch": "main", "commit": "475d3ad8cae486b0df6fc6050cf5b5ea1de42db8" },
-  "sidekick.nvim": { "branch": "main", "commit": "2cb7359b0908f52dd07ee8200f904ccf975f7679" },
-  "snacks.nvim": { "branch": "main", "commit": "d293b21fe1a603dfb4757feb82ab3e67b78589f2" },
+  "sidekick.nvim": { "branch": "main", "commit": "b67050d0abba8682b9a9e87bef0cf878b922098c" },
+  "snacks.nvim": { "branch": "main", "commit": "db3c13c28e0e7231bc3a45cd0db0e6683fc6c2c5" },
   "which-key.nvim": { "branch": "main", "commit": "b4177e3eaf15fe5eb8357ebac2286d488be1ed00" }
 }
