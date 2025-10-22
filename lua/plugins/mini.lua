@@ -26,7 +26,7 @@ return {
 
   {
     require("consts").MINI_ICONS,
-    lazy = true,
+    event = "VeryLazy",
     opts = {
       file = {
         [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
