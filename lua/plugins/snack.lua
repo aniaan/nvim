@@ -122,7 +122,7 @@ return {
         "<leader>sm",
         function() Snacks.picker.marks() end,
         desc = "Marks",
-      }
+      },
     },
     config = function(_, opts)
       require("snacks").setup(opts)
