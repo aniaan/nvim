@@ -13,7 +13,7 @@ local function apply_hue_theme(colors_name)
 end
 
 local function apply_hue_pattle_theme(colors_name)
-  local pattle = require("base46.themes." .. colors_name)
+  local pattle = M.get_theme_val(colors_name, "palette")
   require("base46.hue").apply_palette(pattle)
   return pattle.bg
 end
@@ -24,11 +24,11 @@ M.setup = function(colors_name)
   vim.g.colors_name = nil
   current_colors_name = colors_name
 
+  vim.o.background = M.get_theme_val(colors_name, "type")
   local bg
   if string.find(colors_name, "mini-p", 1, true) ~= nil then
     bg = apply_hue_pattle_theme(colors_name)
   else
-    vim.o.background = M.get_theme_val(colors_name, "type")
     bg = apply_hue_theme(colors_name)
   end
 
