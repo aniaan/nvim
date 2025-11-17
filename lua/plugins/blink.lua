@@ -13,7 +13,7 @@ return {
       },
 
       sources = {
-        default = { "lsp", "snippets", "buffer" },
+        default = { "lsp", "snippets", "buffer", 'path' },
       },
 
       cmdline = {

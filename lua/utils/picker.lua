@@ -66,7 +66,26 @@ M.normal_layout = {
 }
 
 M.lsp_layout = {
-  layout = H.get_layout(),
+  layout = {
+    position = "center",
+    layout = {
+      backdrop = false,
+      height = 0.6,
+      width = 0.4,
+      min_width = 80,
+      border = "none",
+      box = "vertical",
+      {
+        box = "vertical",
+        border = "rounded",
+        title = "",
+        title_pos = "center",
+        { win = "input", height = 1, border = "none" },
+        { win = "list", border = "top" },
+      },
+      { win = "preview", title = "", border = "rounded" },
+    },
+  },
 }
 
 M.explorer_layout = {
