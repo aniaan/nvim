@@ -1,3 +1,50 @@
+local fetch_leetcode_problem_prompt_temlate = [[
+For LeetCode problem %s, provide a Rust code template following this exact structure:
+
+1. First: Problem description and metadata as comments:
+// LeetCode Problem %s
+// 
+// [Problem description wrapped at 60 chars per line]
+//
+// Examples(provide at least two example):
+// Input: <example input>
+// Output: <example output>
+//
+// Constraints: 
+// [List each constraint on a new line]
+
+2. Second: Any required helper structs/types (if needed):
+// Definition for required data structures
+[Include any struct definitions needed for the problem]
+
+3. Third: Empty implementation:
+impl Solution <left_brace>
+    pub fn <function_name>(<params>) -> <return_type> <left_brace>
+        unimplemented!()
+    <right_brace>
+<right_brace>
+
+struct Solution;
+
+4. Fourth: Test structure:
+#[cfg(test)]
+mod tests <left_brace>
+    use super::*;
+
+    #[test]
+    fn test_<function_name>() <left_brace>
+        assert_eq!(<expected>, Solution::<function_name>(<test_input>));
+    <right_brace>
+<right_brace>
+
+Important:
+- Follow this exact order: comments -> helper structs -> implementation -> tests
+- Include any necessary struct definitions as provided in the LeetCode problem
+- Do not include any actual implementation code
+- Do not include any markdown formatting
+- Wrap all comment lines at 60 characters
+- Include at least one test case
+]]
 return {
   {
     require("consts").SIDE_KICK,
@@ -5,6 +52,18 @@ return {
     opts = {
       nes = {
         enabled = vim.g.copilot_enabled, -- Enable Next Edit Suggestions
+      },
+      cli = {
+        prompts = {
+          create_leetcode_problem_template = function(ctx)
+            local buf = ctx.buf
+            local file = vim.api.nvim_buf_get_name(buf)
+            local problem_id = file:match("l(%d+)")
+            if not problem_id then return '' end
+            problem_id = tostring(tonumber(problem_id)) -- remove leading zeros
+            return string.format(fetch_leetcode_problem_prompt_temlate, problem_id, problem_id)
+          end,
+        },
       },
     },
     keys = {
