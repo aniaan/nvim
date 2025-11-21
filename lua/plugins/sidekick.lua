@@ -43,7 +43,7 @@ Important:
 - Do not include any actual implementation code
 - Do not include any markdown formatting
 - Wrap all comment lines at 60 characters
-- Include at least one test case
+- Include at least three test case
 ]]
 return {
   {
@@ -55,7 +55,7 @@ return {
       },
       cli = {
         prompts = {
-          create_leetcode_problem_template = function(ctx)
+          leetcode = function(ctx)
             local buf = ctx.buf
             local file = vim.api.nvim_buf_get_name(buf)
             local problem_id = file:match("l(%d+)")
