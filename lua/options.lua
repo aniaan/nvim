@@ -27,7 +27,7 @@ opt.mousescroll = "ver:3,hor:0"       -- Mouse scroll settings: 3 lines vertical
 opt.swapfile = false                  -- Disable swap files
 opt.undofile = true                   -- Enable persistent undo, survives restarts
 opt.cursorline = true                 -- Highlight current line
-opt.wrap = false                      -- Disable line wrapping
+opt.wrap = true                      -- Disable line wrapping
 opt.clipboard = "unnamedplus"         -- Sync with system clipboard (non-SSH environments)
 
 -- ============================================================================
