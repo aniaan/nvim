@@ -160,4 +160,3 @@ if vim.env.SSH_TTY then
 end
 
 if vim.fn.exists("syntax_on") ~= 1 then vim.cmd("syntax enable") end
-

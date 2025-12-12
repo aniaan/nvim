@@ -60,7 +60,7 @@ return {
             local buf = ctx.buf
             local file = vim.api.nvim_buf_get_name(buf)
             local problem_id = file:match("l(%d+)")
-            if not problem_id then return '' end
+            if not problem_id then return "" end
             problem_id = tostring(tonumber(problem_id)) -- remove leading zeros
             return string.format(fetch_leetcode_problem_prompt_temlate, problem_id, problem_id)
           end,
