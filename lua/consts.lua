@@ -15,6 +15,7 @@ M.SIDE_KICK = folke .. "sidekick.nvim"
 local treesitter = "nvim-treesitter/"
 M.TREESITTER = treesitter .. "nvim-treesitter"
 M.TREESITTER_OBJECTS = treesitter .. "nvim-treesitter-textobjects"
+M.TREESITTER_CONTEXT = treesitter .. "nvim-treesitter-context"
 
 M.MARKDOWN = "MeanderingProgrammer/render-markdown.nvim"
 

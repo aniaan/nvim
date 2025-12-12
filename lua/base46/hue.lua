@@ -908,7 +908,8 @@ MiniHues.apply_palette = function(palette, plugins)
   hi("RenderMarkdownTodo", { link = "Todo" })
   hi("RenderMarkdownUnchecked", { link = "DiagnosticWarn" })
 
-  -- Terminal colors
+  hi("TreesitterContext", { bg = p.bg_mid, fg = nil })
+
   vim.g.terminal_color_0 = p.bg
   vim.g.terminal_color_1 = p.red
   vim.g.terminal_color_2 = p.green

@@ -39,7 +39,7 @@ local function setup_treesitter_move()
     { key = "]a", func = move.goto_next_start, target = "@parameter.inner", desc = "Next parameter start" },
 
     { key = "[f", func = move.goto_previous_start, target = "@function.outer", desc = "Previous function start" },
-    { key = "[c", func = move.goto_previous_start, target = "@class.outer", desc = "Previous class start" },
+    -- { key = "[c", func = move.goto_previous_start, target = "@class.outer", desc = "Previous class start" },
     { key = "[a", func = move.goto_previous_start, target = "@parameter.inner", desc = "Previous parameter start" },
   }
 
@@ -71,6 +71,25 @@ return {
     branch = "main",
     dependencies = {
       { require("consts").TREESITTER_OBJECTS, branch = "main" },
+      {
+        require("consts").TREESITTER_CONTEXT,
+        opts = {
+          max_lines = 3,
+          multiline_threshold = 1,
+          min_window_height = 20,
+        },
+        keys = {
+          {
+            "[c",
+            function()
+              vim.schedule(function() require("treesitter-context").go_to_context() end)
+              return "<Ignore>"
+            end,
+            desc = "Jump to upper context",
+            expr = true,
+          },
+        },
+      },
     },
     build = ":TSUpdate",
     opts = {},
