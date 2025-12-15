@@ -744,7 +744,7 @@ MiniHues.apply_palette = function(palette, plugins)
   hi("SnacksPickerGitStatusUntracked", { fg = p.fg_mid2 })
   hi("SnacksPickerPathIgnored", { fg = p.fg_mid2 })
   hi("SnacksPickerPathHidden", { fg = p.fg_mid2 })
-  hi("SnacksPickerInputBorder", { fg = p.bg_mid })
+  -- hi("SnacksPickerInputBorder", { fg = p.bg_mid })
 
   -- 背景遮罩高亮组
   -- 使用深色高透明度背景，让非匹配区域明显淡化
