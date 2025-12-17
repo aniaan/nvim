@@ -53,7 +53,7 @@ local function setup_treesitter_move()
 end
 
 local function install()
-  require("nvim-treesitter").install(ensure_installed)
+  vim.schedule(function() require("nvim-treesitter").install(ensure_installed) end)
   local filetypes = vim.iter(ensure_installed):map(vim.treesitter.language.get_filetypes):flatten():totable()
   vim.api.nvim_create_autocmd("FileType", {
     pattern = filetypes,
