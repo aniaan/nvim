@@ -9,7 +9,6 @@ local ensure_installed = {
   "javascript",
   "json",
   "json5",
-  "jsonc",
   "lua",
   "markdown",
   "markdown_inline",
@@ -54,14 +53,11 @@ local function setup_treesitter_move()
 end
 
 local function install()
-  local isnt_installed = function(lang) return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0 end
-  local to_install = vim.tbl_filter(isnt_installed, ensure_installed)
-  if #to_install > 0 then require("nvim-treesitter").install(to_install) end
-
+  require("nvim-treesitter").install(ensure_installed)
   local filetypes = vim.iter(ensure_installed):map(vim.treesitter.language.get_filetypes):flatten():totable()
   vim.api.nvim_create_autocmd("FileType", {
     pattern = filetypes,
-    callback = function() pcall(vim.treesitter.start) end,
+    callback = function(ev) vim.treesitter.start(ev.buf) end,
   })
 end
 
