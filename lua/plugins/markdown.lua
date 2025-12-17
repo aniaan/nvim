@@ -12,8 +12,8 @@ return {
         sign = false,
         icons = {},
       },
-      file_types = { "markdown", "Avante" },
+      file_types = { "markdown" },
     },
-    ft = { "Avante", "markdown" },
+    ft = { "markdown" },
   },
 }
