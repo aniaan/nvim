@@ -320,7 +320,11 @@ MiniHues.apply_palette = function(palette, plugins)
   hi("ComplMatchIns", { fg = nil, bg = nil })
   hi("Conceal", { fg = p.azure, bg = nil })
   hi("CurSearch", { fg = p.bg, bg = p.yellow })
-  hi("Cursor", { fg = p.bg, bg = p.fg })
+  if vim.o.background == "dark" then
+    hi("Cursor", { fg = p.bg, bg = p.fg })
+  else
+    hi("Cursor", { fg = p.bg, bg = p.cyan })
+  end
   hi("CursorColumn", { fg = nil, bg = p.bg_mid })
   hi("CursorIM", { link = "Cursor" })
   hi("CursorLine", { fg = nil, bg = p.bg_mid })

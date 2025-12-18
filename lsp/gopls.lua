@@ -60,7 +60,7 @@ return {
       },
       usePlaceholders = true,
       completeUnimported = true,
-      semanticTokens = true,
+      -- semanticTokens = true,
     },
   },
 }

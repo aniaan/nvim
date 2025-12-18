@@ -34,7 +34,7 @@ opt.clipboard = "unnamedplus"         -- Sync with system clipboard (non-SSH env
 -- Indentation and tab settings
 -- ============================================================================
 opt.sw = 2              -- Use 2 spaces for auto-indentation (shiftwidth)
-opt.ts = 2              -- Display tab as 2 spaces width (tabstop)
+opt.ts = 4              -- Display tab as 2 spaces width (tabstop)
 opt.et = true           -- Convert tabs to spaces (expandtab)
 opt.smartindent = true  -- Smart indentation based on syntax
 opt.shiftround = true   -- Round indentation to multiples of shiftwidth
