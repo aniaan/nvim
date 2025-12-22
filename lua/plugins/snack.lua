@@ -48,8 +48,8 @@ return {
         sources = {
           files = Picker.normal_layout,
           buffers = Picker.normal_layout,
-          lsp_declarations = Picker.normal_layout,
-          lsp_definitions = Picker.normal_layout,
+          lsp_declarations = Picker.lsp_layout,
+          lsp_definitions = Picker.lsp_layout,
           lsp_implementations = Picker.normal_layout,
           lsp_references = Picker.lsp_layout,
           lsp_symbols = Picker.lsp_layout,
