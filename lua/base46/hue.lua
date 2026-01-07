@@ -914,7 +914,7 @@ MiniHues.apply_palette = function(palette, plugins)
 
   hi("TreesitterContext", { bg = p.bg_mid, fg = nil })
 
-  hi("GitSignsAdd", { fg = p.green, bg = nil })
+  hi("GitSignsAdd", { fg = p.cyan, bg = nil })
   hi("GitSignsAddLn", { link = "GitSignsAdd" })
   hi("GitSignsAddInline", { link = "GitSignsAdd" })
 
