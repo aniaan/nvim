@@ -23,6 +23,7 @@ end
 -- local copilot_icon = vim.g.copilot_enabled and " " or ""
 MiniStatusline.active = function()
   local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+  local git = MiniStatusline.section_git({ trunc_width = 40 })
   local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
   local location = MiniStatusline.section_location({ trunc_width = 75 })
   local lsp_progress, lsp_hl = MiniStatusline.section_lsp_progress({ trunc_width = 75 })
@@ -34,7 +35,7 @@ MiniStatusline.active = function()
   -- sections, etc.)
   return MiniStatusline.combine_groups({
     { hl = mode_hl, strings = { mode } },
-    { hl = "MiniStatuslineDevinfo", strings = { diagnostics } },
+    { hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
     "%<", -- Mark general truncate point
     { hl = "MiniStatuslineFilename", strings = { modified } },
     "%=", -- End left alignment
@@ -180,6 +181,14 @@ MiniStatusline.section_location = function(args)
 
   -- Use `virtcol()` to correctly handle multi-byte characters
   return '%l|%L│%2v|%-2{virtcol("$") - 1}'
+end
+
+MiniStatusline.section_git = function(args)
+  if MiniStatusline.is_truncated(args.trunc_width) then return "" end
+
+  local summary = vim.b.gitsigns_head
+  if summary == nil then return "" end
+  return " " .. summary
 end
 
 -- Showed diagnostic levels

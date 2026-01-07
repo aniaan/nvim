@@ -25,4 +25,6 @@ M.MINI_DIFF = mini .. "mini.diff"
 M.MINI_ICONS = mini .. "mini.icons"
 M.MINI_PAIRS = mini .. "mini.pairs"
 
+M.GITSIGNS = "lewis6991/gitsigns.nvim"
+
 return M

@@ -914,6 +914,22 @@ MiniHues.apply_palette = function(palette, plugins)
 
   hi("TreesitterContext", { bg = p.bg_mid, fg = nil })
 
+  hi("GitSignsAdd", { fg = p.green, bg = nil })
+  hi("GitSignsAddLn", { link = "GitSignsAdd" })
+  hi("GitSignsAddInline", { link = "GitSignsAdd" })
+
+  hi("GitSignsChange", { fg = p.yellow, bg = nil })
+  hi("GitSignsChangeLn", { link = "GitSignsChange" })
+  hi("GitSignsChangeInline", { link = "GitSignsChange" })
+
+  hi("GitSignsDelete", { fg = p.red, bg = nil })
+  hi("GitSignsDeleteLn", { link = "GitSignsDelete" })
+  hi("GitSignsDeleteInline", { link = "GitSignsDelete" })
+
+  hi("GitSignsUntracked", { fg = p.azure, bg = nil })
+  hi("GitSignsUntrackedLn", { link = "GitSignsUntracked" })
+  hi("GitSignsUntrackedInline", { link = "GitSignsUntracked" })
+
   vim.g.terminal_color_0 = p.bg
   vim.g.terminal_color_1 = p.red
   vim.g.terminal_color_2 = p.green

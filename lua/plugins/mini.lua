@@ -18,11 +18,11 @@ return {
       })
     end,
   },
-  {
-    require("consts").MINI_DIFF,
-    event = "VeryLazy",
-    opts = {},
-  },
+  -- {
+  --   require("consts").MINI_DIFF,
+  --   event = "VeryLazy",
+  --   opts = {},
+  -- },
 
   {
     require("consts").MINI_ICONS,
