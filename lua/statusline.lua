@@ -196,7 +196,7 @@ MiniStatusline.section_diff = function(args)
   if MiniStatusline.is_truncated(args.trunc_width) then return "" end
 
   local summary = vim.b.gitsigns_status
-  if summary == nil then return "" end
+  if summary == nil or summary == "" then return "" end
   return " " .. summary
 end
 
