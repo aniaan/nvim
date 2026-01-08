@@ -13,8 +13,8 @@ return {
         ---@param desc string
         local function nmap(lhs, rhs, desc) vim.keymap.set("n", lhs, rhs, { desc = desc, buffer = buffer }) end
 
-        nmap("[h", gs.prev_hunk, "Previous hunk")
-        nmap("]h", gs.next_hunk, "Next hunk")
+        nmap("[g", gs.prev_hunk, "Previous hunk")
+        nmap("]g", gs.next_hunk, "Next hunk")
         nmap("<leader>gR", gs.reset_buffer, "Reset buffer")
         nmap("<leader>gb", gs.blame_line, "Blame line")
         nmap("<leader>gp", gs.preview_hunk, "Preview hunk")
