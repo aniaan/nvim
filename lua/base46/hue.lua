@@ -865,6 +865,16 @@ MiniHues.apply_palette = function(palette, plugins)
   hi("MiniStatuslineLsp", { fg = p.accent, bg = p.bg })
   hi("MiniStatuslineCopilot", { fg = p.purple, bg = p.bg })
 
+  hi("MiniStatuslineGitBranch", { fg = p.fg_edge, bg = p.bg_mid })
+  hi("MiniStatuslineGitAdd", { fg = p.green, bg = p.bg_mid })
+  hi("MiniStatuslineGitChange", { fg = p.yellow, bg = p.bg_mid })
+  hi("MiniStatuslineGitDelete", { fg = p.red, bg = p.bg_mid })
+
+  hi("MiniStatuslineDiagError", { fg = p.red, bg = p.bg_mid })
+  hi("MiniStatuslineDiagWarn", { fg = p.yellow, bg = p.bg_mid })
+  hi("MiniStatuslineDiagInfo", { fg = p.blue, bg = p.bg_mid })
+  hi("MiniStatuslineDiagHint", { fg = p.cyan, bg = p.bg_mid })
+
   hi("LazyButton", { fg = nil, bg = p.bg_mid })
   hi("LazyButtonActive", { fg = nil, bg = p.bg_mid2 })
   hi("LazyDimmed", { link = "Comment" })
@@ -919,7 +929,7 @@ MiniHues.apply_palette = function(palette, plugins)
 
   hi("TreesitterContext", { bg = p.bg_mid, fg = nil })
 
-  hi("GitSignsAdd", { fg = p.azure, bg = nil })
+  hi("GitSignsAdd", { fg = p.green, bg = nil })
   hi("GitSignsAddLn", { link = "GitSignsAdd" })
   hi("GitSignsAddInline", { link = "GitSignsAdd" })
 

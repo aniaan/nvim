@@ -20,11 +20,9 @@ end
 
 -- Module functionality =======================================================
 --- Compute content for active window
--- local copilot_icon = vim.g.copilot_enabled and " " or ""
 MiniStatusline.active = function()
   local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
   local git = MiniStatusline.section_git({ trunc_width = 40 })
-  local diff = MiniStatusline.section_diff({ trunc_width = 75 })
   local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
   local location = MiniStatusline.section_location({ trunc_width = 75 })
   local lsp_progress, lsp_hl = MiniStatusline.section_lsp_progress({ trunc_width = 75 })
@@ -36,7 +34,7 @@ MiniStatusline.active = function()
   -- sections, etc.)
   return MiniStatusline.combine_groups({
     { hl = mode_hl, strings = { mode } },
-    { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics } },
+    { hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
     "%<", -- Mark general truncate point
     { hl = "MiniStatuslineFilename", strings = { modified } },
     "%=", -- End left alignment
@@ -139,16 +137,15 @@ MiniStatusline.section_diagnostics = function(args)
   local count = H.diagnostic_counts[vim.api.nvim_get_current_buf()]
   if count == nil or H.diagnostic_is_disabled() then return "" end
 
-  local severity, signs, t = vim.diagnostic.severity, args.signs or {}, {}
+  local severity, t = vim.diagnostic.severity, {}
+
   for _, level in ipairs(H.diagnostic_levels) do
     local n = count[severity[level.name]] or 0
     -- Add level info only if diagnostic is present
-    if n > 0 then table.insert(t, " " .. (signs[level.name] or level.sign) .. n) end
+    if n > 0 then table.insert(t, H.with_hl(level.hl, level.icon .. n)) end
   end
   if #t == 0 then return "" end
-
-  local icon = ""
-  return icon .. table.concat(t, "")
+  return table.concat(t, " ")
 end
 
 local lsp_msg = ""
@@ -187,25 +184,30 @@ end
 MiniStatusline.section_git = function(args)
   if MiniStatusline.is_truncated(args.trunc_width) then return "" end
 
-  local summary = vim.b.gitsigns_head
-  if summary == nil then return "" end
-  return " " .. summary
-end
+  if not vim.b.gitsigns_head then return "" end
 
-MiniStatusline.section_diff = function(args)
-  if MiniStatusline.is_truncated(args.trunc_width) then return "" end
+  local git_status = vim.b.gitsigns_status_dict
 
-  local summary = vim.b.gitsigns_status
-  if summary == nil or summary == "" then return "" end
-  return " " .. summary
+  local added = (git_status.added and git_status.added ~= 0)
+      and H.with_hl("MiniStatuslineGitAdd", "  " .. git_status.added)
+    or ""
+  local changed = (git_status.changed and git_status.changed ~= 0)
+      and H.with_hl("MiniStatuslineGitChange", "  " .. git_status.changed)
+    or ""
+  local removed = (git_status.removed and git_status.removed ~= 0)
+      and H.with_hl("MiniStatuslineGitDelete", "  " .. git_status.removed)
+    or ""
+  local branch_name = H.with_hl("MiniStatuslineGitBranch", " " .. git_status.head)
+
+  return branch_name .. added .. changed .. removed
 end
 
 -- Showed diagnostic levels
 H.diagnostic_levels = {
-  { name = "ERROR", sign = "E" },
-  { name = "WARN", sign = "W" },
-  { name = "INFO", sign = "I" },
-  { name = "HINT", sign = "H" },
+  { name = "ERROR", sign = "E", icon = " ", hl = "MiniStatuslineDiagError" },
+  { name = "WARN", sign = "W", icon = " ", hl = "MiniStatuslineDiagWarn" },
+  { name = "INFO", sign = "I", icon = " ", hl = "MiniStatuslineDiagInfo" },
+  { name = "HINT", sign = "H", icon = " ", hl = "MiniStatuslineDiagHint" },
 }
 
 -- Diagnostic counts per buffer id
@@ -281,5 +283,7 @@ H.diagnostic_is_disabled = function() return not vim.diagnostic.is_enabled({ buf
 
 -- Utilities ------------------------------------------------------------------
 H.error = function(msg) error("(mini.statusline) " .. msg, 0) end
+
+H.with_hl = function(hl_group, text) return "%#" .. hl_group .. "#" .. text .. "%#MiniStatuslineDevinfo#" end
 
 return MiniStatusline
