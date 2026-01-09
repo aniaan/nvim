@@ -4,6 +4,7 @@
 -- Module definition ==========================================================
 local MiniStatusline = {}
 local H = {}
+local icons = require("icons")
 
 --- Module setup
 MiniStatusline.setup = function()
@@ -204,10 +205,10 @@ end
 
 -- Showed diagnostic levels
 H.diagnostic_levels = {
-  { name = "ERROR", sign = "E", icon = " ", hl = "MiniStatuslineDiagError" },
-  { name = "WARN", sign = "W", icon = " ", hl = "MiniStatuslineDiagWarn" },
-  { name = "INFO", sign = "I", icon = " ", hl = "MiniStatuslineDiagInfo" },
-  { name = "HINT", sign = "H", icon = " ", hl = "MiniStatuslineDiagHint" },
+  { name = "ERROR", sign = "E", icon = icons.diagnostics.ERROR, hl = "MiniStatuslineDiagError" },
+  { name = "WARN", sign = "W", icon = icons.diagnostics.WARN, hl = "MiniStatuslineDiagWarn" },
+  { name = "INFO", sign = "I", icon = icons.diagnostics.INFO, hl = "MiniStatuslineDiagInfo" },
+  { name = "HINT", sign = "H", icon = icons.diagnostics.HINT, hl = "MiniStatuslineDiagHint" },
 }
 
 -- Diagnostic counts per buffer id
