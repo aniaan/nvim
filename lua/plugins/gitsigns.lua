@@ -5,6 +5,7 @@ return {
     opts = {
       signcolumn = false,
       numhl = true,
+      preview_config = { border = "rounded" },
       on_attach = function(buffer)
         local gs = package.loaded.gitsigns
 
