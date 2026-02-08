@@ -55,4 +55,4 @@ require("lazy").setup({
   },
 })
 
-require("vim._extui").enable({})
+require("vim._core.ui2").enable({})
