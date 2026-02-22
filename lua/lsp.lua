@@ -159,6 +159,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
       "taplo",
       "yamlls",
       "copilot",
+      "tsgo"
     }
     vim.lsp.enable(server_configs)
   end,
