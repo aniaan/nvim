@@ -27,4 +27,6 @@ M.MINI_PAIRS = mini .. "mini.pairs"
 
 M.GITSIGNS = "lewis6991/gitsigns.nvim"
 
+M.GRUG_FAR = "MagicDuck/grug-far.nvim"
+
 return M
