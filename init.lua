@@ -16,7 +16,8 @@ vim.opt.rtp:prepend(lazypath)
 require("options")
 require("keymaps")
 require("autocmds")
-require("base46").setup("mini-p-winter-dark")
+vim.o.background = "light"
+vim.cmd.colorscheme("ember")
 require("statusline").setup()
 require("lsp")
 
