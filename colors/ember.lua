@@ -31,44 +31,33 @@ local M = {}
 --   fg         main text
 --   fg_bright  titles, selection text
 local p = {
-  bg0_hard = "#faf4e2",
-  bg0 = "#f5efdf",
-  bg1 = "#ede5d0",
-  bg2 = "#e4dac0",
-  bg3 = "#d8c9a8",
-  bg4 = "#b8a888",
-  fg_dim = "#756a50", -- deepened for WCAG AA on bg0 (≈4.6:1, up from 3.4:1)
-  fg = "#3a332a",
+  bg0_hard = "#faf5e5",
+  bg0 = "#f6f0e0",
+  bg1 = "#ede6d2",
+  bg2 = "#e4dac2",
+  bg3 = "#d8cbae",
+  bg4 = "#b8a98b",
+  fg_dim = "#6d624b",
+  fg = "#3b342b",
   fg_bright = "#2a241d",
 
   -- 7 accents — warm & low-sat. Each owns a semantic lane:
   --   red     keyword family (legacy Keyword, most @keyword.*)
   --   orange  UI chrome / titles / pills / alerts (MatchParen, IncSearch,
-  --           mode-Normal, picker title, warning bgs, markdown H2…)
+  --           mode-Normal, picker title, markdown H1/H2 fg…)
   --   yellow  types + warnings + Search highlight
   --   green   strings + additions + ok
   --   cyan    members / properties / modules + hints + imports
   --   blue    functions + diagnostic-info + directories
   --   magenta constants, numbers, literals + meta layer
   --           (macro/directive/special-char/attribute/preproc)
-  red = "#a0482c",
-  orange = "#9c6820",
-  yellow = "#8a6810",
-  green = "#5e6e1c",
-  cyan = "#3c6a5c",
-  blue = "#3c5e80",
-  magenta = "#824868",
-
-  -- diagnostic bg tints (washed variants of the 4 diagnostic accents)
-  err_bg = "#f2dcd0",
-  warn_bg = "#f2e4c4",
-  info_bg = "#d8e2ec",
-  hint_bg = "#d8e4d4",
-
-  -- git aliases
-  add = "#5e6e1c",
-  change = "#8a6810",
-  del = "#a0482c",
+  red = "#9c4134",
+  orange = "#a15f1e",
+  yellow = "#846800",
+  green = "#49742e",
+  cyan = "#1b6d71",
+  blue = "#375e8e",
+  magenta = "#8a4467",
 
   none = "NONE",
 }
@@ -152,9 +141,9 @@ local function apply()
   hi("diffAdded", { fg = p.green })
   hi("diffChanged", { fg = p.yellow })
   hi("diffRemoved", { fg = p.red })
-  hi("DiffAdd", { bg = p.hint_bg })
-  hi("DiffChange", { bg = p.warn_bg })
-  hi("DiffDelete", { fg = p.red, bg = p.err_bg })
+  hi("DiffAdd", { fg = p.green, bg = p.bg1, bold = true })
+  hi("DiffChange", { fg = p.yellow, bg = p.bg1, bold = true })
+  hi("DiffDelete", { fg = p.red, bg = p.bg1, bold = true })
   hi("DiffText", { bg = p.bg3 })
 
   -- diagnostics -----------------------------------------------------------
@@ -163,10 +152,10 @@ local function apply()
   hi("DiagnosticInfo", { fg = p.blue })
   hi("DiagnosticHint", { fg = p.cyan })
   hi("DiagnosticOk", { fg = p.green })
-  hi("DiagnosticVirtualTextError", { fg = p.red, bg = p.err_bg })
-  hi("DiagnosticVirtualTextWarn", { fg = p.yellow, bg = p.warn_bg })
-  hi("DiagnosticVirtualTextInfo", { fg = p.blue, bg = p.info_bg })
-  hi("DiagnosticVirtualTextHint", { fg = p.cyan, bg = p.hint_bg })
+  hi("DiagnosticVirtualTextError", { fg = p.red })
+  hi("DiagnosticVirtualTextWarn", { fg = p.yellow })
+  hi("DiagnosticVirtualTextInfo", { fg = p.blue })
+  hi("DiagnosticVirtualTextHint", { fg = p.cyan })
   hi("DiagnosticUnderlineError", { sp = p.red, undercurl = true })
   hi("DiagnosticUnderlineWarn", { sp = p.yellow, undercurl = true })
   hi("DiagnosticUnderlineInfo", { sp = p.blue, undercurl = true })
@@ -361,13 +350,13 @@ local function apply()
   hi("TreesitterContextLineNumber", { fg = p.fg_dim, bg = p.bg2 })
 
   -- Gitsigns (full set) ---------------------------------------------------
-  hi("GitSignsAdd", { fg = p.add })
+  hi("GitSignsAdd", { fg = p.green, bold = true })
   hi("GitSignsAddLn", { link = "GitSignsAdd" })
   hi("GitSignsAddInline", { link = "GitSignsAdd" })
-  hi("GitSignsChange", { fg = p.change })
+  hi("GitSignsChange", { fg = p.yellow, bold = true })
   hi("GitSignsChangeLn", { link = "GitSignsChange" })
   hi("GitSignsChangeInline", { link = "GitSignsChange" })
-  hi("GitSignsDelete", { fg = p.del })
+  hi("GitSignsDelete", { fg = p.red, bold = true })
   hi("GitSignsDeleteLn", { link = "GitSignsDelete" })
   hi("GitSignsDeleteInline", { link = "GitSignsDelete" })
   hi("GitSignsUntracked", { fg = p.blue })
@@ -387,7 +376,7 @@ local function apply()
   -- No bg: a tinted patch under every parameter/type hint chops up the line
   -- visually. fg=bg4 keeps the hint as ghosted text, lighter than Comment so
   -- it doesn't fight real comments for attention.
-  hi("LspInlayHint", { fg = p.bg4 })
+  hi("LspInlayHint", { fg = p.fg_dim })
   hi("LspCodeLens", { fg = p.fg_dim })
   hi("LspCodeLensSeparator", { fg = p.bg4 })
   hi("LspSignatureActiveParameter", { fg = p.orange, bg = p.bg1 })
@@ -738,26 +727,26 @@ local function apply()
   link("TroubleTextWarning", "TroubleText")
 
   -- render-markdown.nvim --------------------------------------------------
-  -- Header bg tints reuse the 4 diagnostic bg tints we already have,
-  -- cycled across 6 levels — H1/H2 use the same ramp twice so we stay
-  -- inside the existing palette.
+  -- Header bgs use the neutral warm bg ladder: H1/H2 get the deeper bg2
+  -- tint for prominence, H3–H6 share bg1. The heading fg colour carries
+  -- the rainbow distinction across levels.
   hi("RenderMarkdownBullet", { fg = p.orange })
   link("RenderMarkdownChecked", "DiagnosticOk")
   hi("RenderMarkdownCode", { bg = p.bg1 })
   hi("RenderMarkdownCodeInline", { bg = p.bg1 })
   hi("RenderMarkdownDash", { fg = p.orange })
   hi("RenderMarkdownH1", { fg = p.red })
-  hi("RenderMarkdownH1Bg", { bg = p.err_bg })
+  hi("RenderMarkdownH1Bg", { bg = p.bg2 })
   hi("RenderMarkdownH2", { fg = p.orange })
-  hi("RenderMarkdownH2Bg", { bg = p.warn_bg })
+  hi("RenderMarkdownH2Bg", { bg = p.bg2 })
   hi("RenderMarkdownH3", { fg = p.yellow })
-  hi("RenderMarkdownH3Bg", { bg = p.warn_bg })
+  hi("RenderMarkdownH3Bg", { bg = p.bg1 })
   hi("RenderMarkdownH4", { fg = p.green })
-  hi("RenderMarkdownH4Bg", { bg = p.hint_bg })
+  hi("RenderMarkdownH4Bg", { bg = p.bg1 })
   hi("RenderMarkdownH5", { fg = p.cyan })
-  hi("RenderMarkdownH5Bg", { bg = p.hint_bg })
+  hi("RenderMarkdownH5Bg", { bg = p.bg1 })
   hi("RenderMarkdownH6", { fg = p.blue })
-  hi("RenderMarkdownH6Bg", { bg = p.info_bg })
+  hi("RenderMarkdownH6Bg", { bg = p.bg1 })
   link("RenderMarkdownTodo", "Todo")
   link("RenderMarkdownUnchecked", "DiagnosticWarn")
 
@@ -867,7 +856,7 @@ local function apply()
   hi("DapBreakpointRejected", { fg = p.fg_dim })
   hi("DapLogPoint", { fg = p.blue })
   hi("DapStopped", { fg = p.green })
-  hi("DapStoppedLine", { bg = p.hint_bg })
+  hi("DapStoppedLine", { bg = p.bg2 })
   hi("DapUIBreakpointsCurrentLine", { fg = p.yellow, bold = true })
   hi("DapUIBreakpointsDisabledLine", { fg = p.fg_dim })
   hi("DapUIBreakpointsInfo", { fg = p.green })
