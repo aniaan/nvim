@@ -33,7 +33,7 @@ M.keys = {
     opts = { desc = "References", nowait = true },
   },
   {
-    lhs = "gI",
+    lhs = "gi",
     rhs = function() Snacks.picker.lsp_implementations() end,
 
     opts = { desc = "Goto Implementation" },
