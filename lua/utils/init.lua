@@ -47,4 +47,26 @@ function M.rust_flycheck(cmd)
   end
 end
 
+---@param visual boolean? When true, use the last visual selection range
+function M.copy_line_permalink(visual)
+  local path = vim.fn.expand("%:.")
+  if path == "" then
+    vim.notify("No file name", vim.log.levels.WARN)
+    return
+  end
+  local link
+  if visual then
+    -- Use "v" / "." instead of '< / '> because the visual marks are only
+    -- written when leaving visual mode, so on the first invocation they
+    -- still hold the previous (or empty) selection.
+    local a, b = vim.fn.line("v"), vim.fn.line(".")
+    local s, e = math.min(a, b), math.max(a, b)
+    link = s == e and string.format("%s#L%d", path, s) or string.format("%s#L%d-L%d", path, s, e)
+  else
+    link = string.format("%s#L%d", path, vim.fn.line("."))
+  end
+  vim.fn.setreg("+", link)
+  vim.notify("Copied: " .. link)
+end
+
 return M

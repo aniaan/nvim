@@ -182,6 +182,9 @@ map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete
 
 -- ui
 
-vim.keymap.set("n", "<leader>ut", function() require("base46").pick_theme() end, { desc = "Pick Theme" })
+map("n", "<leader>ut", function() require("base46").pick_theme() end, { desc = "Pick Theme" })
 
-vim.keymap.set("n", "<leader>uo", function() require("utils.tools").pick_tool() end, { desc = "Pick Tool" })
+map("n", "<leader>uo", function() require("utils.tools").pick_tool() end, { desc = "Pick Tool" })
+
+map("n", "<leader>cl", function() require("utils").copy_line_permalink(false) end, { desc = "Copy Line Permalink" })
+map("x", "<leader>cl", function() require("utils").copy_line_permalink(true) end, { desc = "Copy Line Permalink" })
