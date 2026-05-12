@@ -47,26 +47,53 @@ function M.rust_flycheck(cmd)
   end
 end
 
----@param visual boolean? When true, use the last visual selection range
+local function get_line_range(visual)
+  if visual then
+    -- Use "v" / "." instead of '< / '> because the visual marks are only
+    -- written when leaving visual mode, so on the first invocation they
+    -- still hold the previous (or empty) selection.
+    local a, b = vim.fn.line("v"), vim.fn.line(".")
+    return math.min(a, b), math.max(a, b)
+  end
+  local line = vim.fn.line(".")
+  return line, line
+end
+
+local function make_line_permalink(path, start_line, end_line)
+  if start_line == end_line then return string.format("%s#L%d", path, start_line) end
+  return string.format("%s#L%d-L%d", path, start_line, end_line)
+end
+
+---@param visual boolean? When true, use the current visual selection range
 function M.copy_line_permalink(visual)
   local path = vim.fn.expand("%:.")
   if path == "" then
     vim.notify("No file name", vim.log.levels.WARN)
     return
   end
-  local link
-  if visual then
-    -- Use "v" / "." instead of '< / '> because the visual marks are only
-    -- written when leaving visual mode, so on the first invocation they
-    -- still hold the previous (or empty) selection.
-    local a, b = vim.fn.line("v"), vim.fn.line(".")
-    local s, e = math.min(a, b), math.max(a, b)
-    link = s == e and string.format("%s#L%d", path, s) or string.format("%s#L%d-L%d", path, s, e)
-  else
-    link = string.format("%s#L%d", path, vim.fn.line("."))
-  end
+
+  local start_line, end_line = get_line_range(visual)
+  local link = make_line_permalink(path, start_line, end_line)
   vim.fn.setreg("+", link)
   vim.notify("Copied: " .. link)
+end
+
+---@param visual boolean? When true, use the current visual selection range
+function M.copy_line_snippet(visual)
+  local path = vim.fn.expand("%:.")
+  if path == "" then
+    vim.notify("No file name", vim.log.levels.WARN)
+    return
+  end
+
+  local start_line, end_line = get_line_range(visual)
+  local link = make_line_permalink(path, start_line, end_line)
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+  local lang = vim.bo.filetype ~= "" and vim.bo.filetype or vim.fn.expand("%:e")
+  local text = string.format("%s\n```%s\n%s\n```", link, lang, table.concat(lines, "\n"))
+
+  vim.fn.setreg("+", text)
+  vim.notify("Copied snippet: " .. link)
 end
 
 return M

@@ -12,6 +12,9 @@ map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = tru
 -- 全选
 map("n", "<C-a>", "ggVG", { desc = "Select All" })
 
+-- 跳回上一个位置后居中
+map("n", "<C-o>", "<C-o>zz", { desc = "Jump Back and Center" })
+
 -- ============================================================================
 -- 插入模式光标移动
 -- ============================================================================
@@ -188,3 +191,5 @@ map("n", "<leader>uo", function() require("utils.tools").pick_tool() end, { desc
 
 map("n", "<leader>cl", function() require("utils").copy_line_permalink(false) end, { desc = "Copy Line Permalink" })
 map("x", "<leader>cl", function() require("utils").copy_line_permalink(true) end, { desc = "Copy Line Permalink" })
+map("n", "<leader>cs", function() require("utils").copy_line_snippet(false) end, { desc = "Copy Line Snippet" })
+map("x", "<leader>cs", function() require("utils").copy_line_snippet(true) end, { desc = "Copy Line Snippet" })
